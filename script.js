@@ -1118,7 +1118,7 @@
       contact: {
         desc: "联系方式",
         run() {
-          out("email   gaoxingyu2006@icloud.com");
+          out("email   markhayford816@icloud.com");
           out("wechat  ITGao06");
           printLink("github  ", "https://github.com/MarkHayford");
           out("想交流技术的话，欢迎发邮件。");
