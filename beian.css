@@ -1,0 +1,17 @@
+/* gongan beian badge in site footer */
+.site-footer__links {
+  flex-wrap: wrap;
+  align-items: center;
+}
+.site-footer__links a.beian-gongan {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+.site-footer__links a.beian-gongan img {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

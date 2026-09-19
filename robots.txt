@@ -1,0 +1,6 @@
+# www.0nyx.cn
+User-agent: *
+Allow: /
+
+Host: www.0nyx.cn
+Sitemap: https://www.0nyx.cn/sitemap.xml
