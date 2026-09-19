@@ -5,6 +5,577 @@
   const finePointer = window.matchMedia("(pointer: fine)").matches;
   const saveData = navigator.connection && navigator.connection.saveData;
 
+  /* ---------- i18n ---------- */
+  const LANG_KEY = "0nyx-lang";
+  const I18N = {
+    zh: {
+      "lang.toggle": "切换为英文",
+      "nav.about": "关于",
+      "nav.awards": "奖项",
+      "nav.work": "作品",
+      "nav.articles": "文章",
+      "nav.contact": "联系",
+      "nav.main": "主导航",
+      "nav.mobile": "移动端导航",
+      "nav.open": "打开导航",
+      "nav.close": "关闭导航",
+      "nav.scrim": "关闭导航",
+      "skip.about": "跳到关于",
+      "skip.project": "跳到项目",
+      "skip.list": "跳到列表",
+      "skip.article": "跳到文章",
+      "brand.home": "0Nyx 首页",
+      "hero.status": "个人作品展示",
+      "hero.role": "全栈开发者 · Full-stack developer",
+      "hero.about": "关于",
+      "hero.lede": "目前就读于内蒙古师范大学计算机科学技术学院软件工程专业，2025 级。做 Web、移动端和 AI 方向的项目，从后端、数据到界面，再到部署上线，都能够独立完成。",
+      "hero.viewWork": "查看作品",
+      "hero.contactMe": "联系我",
+      "hero.avatarAlt": "0Nyx 的头像",
+      "hero.easterTitle": "彩蛋：月薪喵",
+      "hero.easterAria": "打开彩蛋：月薪喵",
+      "hero.scroll": "向下滚动",
+      "hero.stack": "常用语言和工具",
+      "term.aria": "交互式终端，输入 help 查看可用命令",
+      "term.inputAria": "终端命令输入，输入 help 查看命令，Tab 补全，上下方向键翻历史",
+      "term.tip": "tip: 输入 help 查看命令",
+      "awards.title": "奖项",
+      "awards.year": "年份",
+      "awards.event": "赛事",
+      "awards.place": "名次",
+      "awards.cert": "证书",
+      "awards.more": "更多奖项",
+      "awards.eventName": "中国高校计算机大赛 · AIGC 创新赛",
+      "awards.placeName": "华北赛区二等奖",
+      "awards.viewCert": "查看证书",
+      "awards.pageTitle": "奖项",
+      "awards.lede": "拿过的都在这儿。可以搜赛事，也可以按年份和名次筛。",
+      "awards.search": "搜索奖项",
+      "awards.searchPh": "搜赛事、名次…",
+      "awards.empty": "没有匹配的奖项。",
+      "awards.second": "二等奖",
+      "work.title": "开源项目",
+      "work.more": "更多项目",
+      "work.stack": "技术栈",
+      "work.crumb": "开源项目",
+      "work.listene.desc": "面向英语学习的 Android AI Agent。生成听力素材与练习卡片，支持精听和错因复盘。",
+      "work.mqlt.title": "蒙企链探",
+      "work.mqlt.tag": "大创赛 / 全栈",
+      "work.mqlt.desc": "内蒙古食品产业研学平台。预约、导览打卡、成果沉淀，再接到积分商城和运营后台。",
+      "work.homepage.tag": "个人主页 / 开源",
+      "work.homepage.desc": "这个站的源码。暗色页面、项目列表和详情页，喜欢的话可以直接拿去改。",
+      "work.equa.title": "方程剧场",
+      "work.equa.tag": "Godot / 3D 物理",
+      "work.equa.desc": "在 3D 实验室里搭物理场景，改参数看运动，再对照公式。目前是概念版。",
+      "work.pill": "概念版",
+      "articles.title": "文章",
+      "articles.more": "更多文章",
+      "articles.read": "阅读文章",
+      "articles.emptyAria": "文章占位",
+      "articles.wasabi.status": "对象存储",
+      "articles.wasabi.title": "性价比超高的对象储存-Wasabi",
+      "articles.wasabi.desc": "流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。",
+      "articles.pageTitle": "文章",
+      "articles.lede": "写过的都在这儿。可以搜标题，也可以按标签筛。",
+      "articles.search": "搜索文章",
+      "articles.searchPh": "搜标题、标签…",
+      "articles.empty": "没有匹配的文章。",
+      "articles.storage": "对象存储",
+      "contact.line1": "想聊技术",
+      "contact.line2": "可以直接写信。",
+      "contact.lede": "对某个项目有问题，或只是想交流，发邮件就好。",
+      "contact.copy": "复制邮箱",
+      "contact.social": "社交链接",
+      "contact.wechat": "微信 · ITGao06",
+      "footer.links": "站点链接",
+      "copy.ok": "已复制",
+      "copy.email": "邮箱已复制",
+      "copy.wechat": "微信号已复制",
+      "copy.fail": "复制失败，请手动复制",
+      "catalog.all": "全部",
+      "catalog.fullstack": "全栈",
+      "catalog.wip": "开发中",
+      "catalog.home": "首页",
+      "catalog.projectsTitle": "开源项目",
+      "catalog.projectsLede": "全部项目都在这儿。可以搜名字，也可以按标签筛。",
+      "catalog.searchProjects": "搜索项目",
+      "catalog.searchProjectsPh": "搜名字、技术栈…",
+      "catalog.emptyProjects": "没有匹配的项目。",
+      "meta.homeTitle": "0Nyx — 全栈开发者",
+      "meta.homeDesc": "0Nyx，个人开发者。这里放我在 Web、移动端和 AI 方向做过的项目。",
+      "meta.projectsTitle": "开源项目 - 0Nyx",
+      "meta.projectsDesc": "0Nyx 的开源项目列表。可以按名字、技术栈搜索和筛选。",
+      "meta.awardsTitle": "奖项 - 0Nyx",
+      "meta.awardsDesc": "0Nyx 的奖项列表。可以按年份、赛事和名次搜索筛选。",
+      "meta.articlesTitle": "文章 - 0Nyx",
+      "meta.articlesDesc": "0Nyx 的文章列表。可以按标题、标签搜索和筛选。",
+      "meta.listeneTitle": "ListenE - 0Nyx",
+      "meta.listeneDesc": "面向英语学习的 Android AI Agent。生成听力素材与练习卡片，支持精听和错因复盘。",
+      "meta.mqltTitle": "蒙企链探 - 0Nyx",
+      "meta.mqltDesc": "内蒙古食品产业研学平台。预约、导览打卡、成果沉淀，再接到积分商城和运营后台。",
+      "meta.homepageTitle": "HomePage - 0Nyx",
+      "meta.homepageDesc": "这个站的源码。暗色页面、项目列表和详情页，喜欢的话可以直接拿去改。",
+      "meta.equaTitle": "方程剧场 - 0Nyx",
+      "meta.equaDesc": "在 3D 实验室里搭物理场景，改参数看运动，再对照公式。目前是概念版。",
+      "meta.wasabiTitle": "性价比超高的对象储存-Wasabi - 0Nyx",
+      "meta.wasabiDesc": "Wasabi 流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。",
+      "p.role": "角色",
+      "p.status": "状态",
+      "p.year": "年份",
+      "p.date": "日期",
+      "p.type": "类型",
+      "p.minFee": "最低月费",
+      "p.indie": "独立开发",
+      "p.indieFull": "独立全栈",
+      "p.public": "公开仓库",
+      "p.concept": "概念版",
+      "p.recommend": "推荐",
+      "p.github": "GitHub 仓库",
+      "p.mirror": "打不开 GitHub？直接下载",
+      "p.openRepo": "打开仓库",
+      "p.what": "这个项目做什么",
+      "p.did": "自己做了什么",
+      "p.stack": "技术栈",
+      "listene.lede": "一个面向英语学习的 Android AI Agent。把听力生成、练习卡片和错因复盘收进可持续的工作区。",
+      "listene.p1": "ListenE 不是题库 App。用户用自然语言提出学习需求，Agent 生成听力素材、练习卡片和音频，再把过程沉淀进工作区。",
+      "listene.p2": "客户端是 Kotlin 与 Jetpack Compose。后端用 NestJS 和 PostgreSQL 管会话、卡片、进度和 TTS 生成。",
+      "listene.b1": "自己写 Android 客户端：聊天、卡片练习、精听回放、词句复盘。",
+      "listene.b2": "自己搭 NestJS 后端：听力生成、卡片契约、学习工作区和进度。",
+      "listene.b3": "把大模型和 TTS 接到真实学习流程里，而不是停在演示对话。",
+      "listene.bubble1": "生成一段雅思听力练习",
+      "listene.bubble2": "已生成 · 对话 + 5 题 + 音频",
+      "mqlt.lede": "大学生创新创业大赛项目。把内蒙古食品企业资源做成可预约、可导览打卡、可沉淀成果的研学闭环。",
+      "mqlt.p1": "蒙企链探面向内蒙古食品产业研学。学生端是 UniApp X 微信小程序，运营后台是 Vue 3，后端是 NestJS、Prisma 和 PostgreSQL。",
+      "mqlt.p2": "完整链路包括研学预约、现场导览打卡、知识任务、成果档案、积分成长、文创商城和权限后台。",
+      "mqlt.b1": "设计并实现研学预约、打卡、任务、证书和积分兑换。",
+      "mqlt.b2": "同时做学生端小程序、运营后台和后端数据模型。",
+      "mqlt.b3": "自己完成部署和联调，把小程序、后台和后端接到同一套接口上。",
+      "mqlt.canvas": "蒙企链探研学运营数据看板示意图",
+      "mqlt.preview": "研学项目示意",
+      "mqlt.m1": "研学项目",
+      "mqlt.m2": "本月打卡",
+      "mqlt.m3": "成果档案",
+      "mqlt.trend": "打卡趋势",
+      "mqlt.days": "近 7 日",
+      "mqlt.live": "实时动态",
+      "mqlt.a1": "示例路线",
+      "mqlt.a2": "成果提交",
+      "mqlt.a3": "学习记录",
+      "mqlt.done": "已完成",
+      "mqlt.pending": "待审核",
+      "hp.lede": "这个网站本身的源码。静态 HTML / CSS / JS，没有框架。喜欢这个设计的话，可以直接下载改成自己的。",
+      "hp.p1": "这是 0nyx.cn 个人主页的源码。首页介绍、奖项、开源项目列表、项目详情页和技术栈轮播都在这个仓库里。",
+      "hp.p2": "静态站，没有构建步骤。资源用相对路径，下载后就能本地打开。喜欢这个设计的话，可以直接 fork 或下载后改成自己的。",
+      "hp.b1": "自己做完整页面结构、样式和交互，包括项目列表和详情页。",
+      "hp.b2": "把源码整理成可直接下载复用的静态仓库。",
+      "hp.b3": "字体、头像和页面资源都放在仓库里，不依赖外部站点也能跑。",
+      "equa.kicker": "Godot / 概念版",
+      "equa.lede": "Equamotion。在 3D 实验室里把力学过程摆出来看，改参数，对照公式。目前是概念版。",
+      "equa.p1": "方程剧场想让力学不再停在纸面。走进一个 3D 实验室，摆出场景，改参数，看运动怎么变，再和公式对上。",
+      "equa.p2": "现在还是概念版，先把「能走进去、能搭场景、能对照公式」这条主路径立住。",
+      "equa.b1": "用 Godot 搭第一人称 3D 实验室。",
+      "equa.b2": "能生成刚体场景，并改物理参数。",
+      "equa.b3": "把运动过程和公式放在同一空间里对照。",
+      "equa.note": "源码尚未公开。需要了解细节可以直接联系我。",
+      "equa.canvas": "方程剧场第一人称实验室示意动画",
+      "wasabi.kicker": "对象存储 / CDN",
+      "wasabi.lede": "Wasabi 流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。",
+      "wasabi.h1": "为啥推荐",
+      "wasabi.p1": "别的对象存储，流量要钱，请求也要钱。文件一多，月底账单就难看。Wasabi 跟 S3 兼容，流量和请求都不管，就按你存了多少收。",
+      "wasabi.p1html": "别的对象存储，流量要钱，请求也要钱。文件一多，月底账单就难看。<a href=\"https://wasabi.com/\" rel=\"noopener\" target=\"_blank\">Wasabi</a> 跟 S3 兼容，流量和请求都不管，就按你存了多少收。",
+      "wasabi.p2": "新注册能免费试用 30 天，先传点东西试试。官网在 wasabi.com。",
+      "wasabi.p2html": "新注册能免费试用 30 天，先传点东西试试。官网在 <a href=\"https://wasabi.com/\" rel=\"noopener\" target=\"_blank\">wasabi.com</a>。",
+      "wasabi.h2": "怎么收费",
+      "wasabi.p3": "一个月最低按 1 TB 算，6.99 美元。你只存了 200 GB，也按 1 TB 收。超过 1 TB 还是这个价，多 1 TB 再加 6.99。",
+      "wasabi.b1": "200 GB：6.99 美元",
+      "wasabi.b2": "1 TB：6.99 美元",
+      "wasabi.b3": "2 TB：13.98 美元",
+      "wasabi.b4": "3 TB：20.97 美元",
+      "wasabi.p4": "文件传上去没满 90 天就删，也按 90 天收费。拿新文件把旧的盖掉，一样。满 90 天后再删，这条就不算了，按你实际还存着的量收。别拿它当临时盘，长期放着更合适。",
+      "wasabi.h3": "有哪些区域",
+      "wasabi.p5": "北美有弗吉尼亚、得克萨斯、俄勒冈，加拿大还有多伦多。欧洲是阿姆斯特丹和伦敦。亚太是东京、新加坡、悉尼。挑近的就行。",
+      "wasabi.h4": "桶不能随便公开",
+      "wasabi.p6": "Wasabi 默认不让把桶设成公开的，怕被人拿去乱传东西。真要把桶改成公开，得发邮件提工单，等他们开。",
+      "wasabi.h5": "挂个免费 EdgeOne",
+      "wasabi.p7": "不一定非要把桶改公开。前面挂腾讯免费的 EdgeOne，用密钥回源 Wasabi。外面走 CDN，桶还是私有的，文件照样能打开。",
+      "wasabi.p7html": "不一定非要把桶改公开。前面挂腾讯免费的 <a href=\"https://cloud.tencent.com/product/teo\" rel=\"noopener\" target=\"_blank\">EdgeOne</a>，用密钥回源 Wasabi。外面走 CDN，桶还是私有的，文件照样能打开。",
+      "wasabi.p8": "国内还有节点，缓存一下会快一些。我这边实测下载速度最高能到 30 MB/s 左右。个人站用免费计划够了，流量真爆了再说。",
+      "wasabi.p9": "价格和试用规则以后可能会变，下单前看一眼官网：Wasabi 价格、EdgeOne。",
+      "wasabi.p9html": "价格和试用规则以后可能会变，下单前看一眼官网：<a href=\"https://wasabi.com/pricing\" rel=\"noopener\" target=\"_blank\">Wasabi 价格</a>、<a href=\"https://cloud.tencent.com/product/teo\" rel=\"noopener\" target=\"_blank\">EdgeOne</a>。",
+      "wasabi.official": "官网",
+      "wasabi.back": "返回文章",
+      "term.help": "查看可用命令",
+      "term.helpHead": "可用命令：",
+      "term.helpMore": "还有一些经典命令也能用：ls / cat / echo / pwd / date …",
+      "term.helpHint": "Tab 补全 · ↑↓ 历史",
+      "term.aboutMe": "关于我",
+      "term.about1": "我是 0Nyx，全栈开发者。",
+      "term.about2": "目前就读于内蒙古师范大学计算机科学技术学院软件工程专业，2025 级。",
+      "term.about3": "做 Web、移动端和 AI 方向的项目，从后端、数据到界面，再到部署上线，都能够独立完成。",
+      "term.about4": "奖项：2026 中国高校计算机大赛 AIGC 创新赛 · 华北赛区二等奖",
+      "term.skills": "技术栈",
+      "term.projects": "开源项目",
+      "term.status": "站点状态",
+      "term.contact": "联系方式",
+      "term.open": "打开站点",
+      "term.meow": "像素小猫",
+      "term.clear": "清屏（Ctrl+L）",
+      "term.who": "我是谁",
+      "term.helpOpen": "打开站点（open 查看列表）",
+      "term.cat": "一只像素小猫",
+      "term.projectsHint": "（彩蛋藏在头像里，试试 meow）",
+      "term.contactHint": "想交流技术的话，欢迎发邮件。",
+      "term.openUsage": "用法：open <site>",
+      "term.openSites": "可用站点：",
+      "term.openUnknown": "open: 不认识 “{0}”，可用：",
+      "term.opening": "正在打开 ",
+      "term.meowLine": " ( o.o )  喵～",
+      "term.meowLink": "完整版在这里 → ",
+      "term.lsMiss": "ls: 无法访问 '{0}': 没有那个文件或目录",
+      "term.catMiss": "cat: 缺少文件名，试试 cat about.txt",
+      "term.catNo": "cat: {0}: 没有那个文件或目录",
+      "term.sudo": "sudo: 权限不足。这里只有一个 root，而你正在看他的主页 :)",
+      "term.rm": "rm: 只读文件系统。想得美 :)",
+      "term.cd": "这是个静态站，哪儿也去不了。试试 open <site>。",
+      "term.exit": "你可以关掉标签页，但为什么要走呢 :)",
+      "term.editor": "{0}: 在别人的终端里写代码可不礼貌 :)",
+      "term.notFound": "输入 help 查看可用命令",
+      "term.listene": "ListenE       Android AI Agent → ",
+      "term.mqlt": "蒙企链探      研学全栈平台 → ",
+      "term.homepage": "HomePage      个人主页源码 → ",
+      "term.equa": "方程剧场      3D 物理实验室 → ",
+      "term.moreCode": "更多代码      ",
+      "term.skillM": "移动端    Kotlin · Jetpack Compose · Material 3 · UniApp X",
+      "term.skillB": "后端      NestJS · Node.js · TypeScript · Fastify · Prisma · PostgreSQL · Redis",
+      "term.skillF": "前端      Vue 3 · Vite · HTML / CSS · Canvas",
+      "term.skillA": "AI        LLM 集成 · TTS / ASR · Agent 编排",
+      "term.skillG": "游戏      Godot 4.7 · GDScript · Jolt Physics",
+      "term.skillD": "部署      Git · Docker · AWS S3",
+    },
+    en: {
+      "lang.toggle": "Switch to Chinese",
+      "nav.about": "About",
+      "nav.awards": "Awards",
+      "nav.work": "Work",
+      "nav.articles": "Notes",
+      "nav.contact": "Contact",
+      "nav.main": "Primary navigation",
+      "nav.mobile": "Mobile navigation",
+      "nav.open": "Open menu",
+      "nav.close": "Close menu",
+      "nav.scrim": "Close menu",
+      "skip.about": "Skip to about",
+      "skip.project": "Skip to project",
+      "skip.list": "Skip to list",
+      "skip.article": "Skip to article",
+      "brand.home": "0Nyx home",
+      "hero.status": "Selected work",
+      "hero.role": "Full-stack developer",
+      "hero.about": "About",
+      "hero.lede": "Software Engineering student at Inner Mongolia Normal University, School of Computer Science and Technology, class of 2025. I build web, mobile, and AI projects end to end — backend, data, UI, and production deploys.",
+      "hero.viewWork": "See work",
+      "hero.contactMe": "Contact",
+      "hero.avatarAlt": "Portrait of 0Nyx",
+      "hero.easterTitle": "Easter egg: salary cat",
+      "hero.easterAria": "Open easter egg: salary cat",
+      "hero.scroll": "Scroll down",
+      "hero.stack": "Languages and tools",
+      "term.aria": "Interactive terminal. Type help for commands",
+      "term.inputAria": "Terminal input. Type help, Tab to complete, up/down for history",
+      "term.tip": "tip: type help for commands",
+      "awards.title": "Awards",
+      "awards.year": "Year",
+      "awards.event": "Event",
+      "awards.place": "Place",
+      "awards.cert": "Certificate",
+      "awards.more": "All awards",
+      "awards.eventName": "China Collegiate Computing Contest · AIGC Innovation",
+      "awards.placeName": "North China Regional · Second Prize",
+      "awards.viewCert": "View certificate",
+      "awards.pageTitle": "Awards",
+      "awards.lede": "Everything I have won. Search by contest, or filter by year and place.",
+      "awards.search": "Search awards",
+      "awards.searchPh": "Search contest or place…",
+      "awards.empty": "No matching awards.",
+      "awards.second": "Second prize",
+      "work.title": "Open source",
+      "work.more": "All projects",
+      "work.stack": "Stack",
+      "work.crumb": "Open source",
+      "work.listene.desc": "An Android AI agent for English listening. It generates audio, practice cards, and error review.",
+      "work.mqlt.title": "MQLT",
+      "work.mqlt.tag": "Competition / full-stack",
+      "work.mqlt.desc": "A field-study platform for Inner Mongolia’s food industry: booking, on-site check-in, archives, a points shop, and an ops console.",
+      "work.homepage.tag": "Personal site / open source",
+      "work.homepage.desc": "Source for this site. Dark pages, project list and detail views — fork it if you like the design.",
+      "work.equa.title": "Equamotion",
+      "work.equa.tag": "Godot / 3D physics",
+      "work.equa.desc": "Build physics scenes in a 3D lab, tweak parameters, and read them against the equations. Concept build.",
+      "work.pill": "Concept",
+      "articles.title": "Notes",
+      "articles.more": "All notes",
+      "articles.read": "Read",
+      "articles.emptyAria": "Note placeholder",
+      "articles.wasabi.status": "Object storage",
+      "articles.wasabi.title": "Wasabi: cheap object storage that does not meter egress",
+      "articles.wasabi.desc": "No egress fees, no request fees. Billed at $6.99 / month for the first 1 TB. 30-day trial. I have seen download peaks around 30 MB/s.",
+      "articles.pageTitle": "Notes",
+      "articles.lede": "Everything I have written. Search titles, or filter by tag.",
+      "articles.search": "Search notes",
+      "articles.searchPh": "Search title or tag…",
+      "articles.empty": "No matching notes.",
+      "articles.storage": "Object storage",
+      "contact.line1": "Want to talk",
+      "contact.line2": "just write.",
+      "contact.lede": "Questions about a project, or just a hello — email is enough.",
+      "contact.copy": "Copy email",
+      "contact.social": "Social links",
+      "contact.wechat": "WeChat · ITGao06",
+      "footer.links": "Site links",
+      "copy.ok": "Copied",
+      "copy.email": "Email copied",
+      "copy.wechat": "WeChat ID copied",
+      "copy.fail": "Copy failed — please copy it manually",
+      "catalog.all": "All",
+      "catalog.fullstack": "Full-stack",
+      "catalog.wip": "In progress",
+      "catalog.home": "Home",
+      "catalog.projectsTitle": "Open source",
+      "catalog.projectsLede": "Every project is here. Search by name, or filter by tag.",
+      "catalog.searchProjects": "Search projects",
+      "catalog.searchProjectsPh": "Search name or stack…",
+      "catalog.emptyProjects": "No matching projects.",
+      "meta.homeTitle": "0Nyx — Full-stack developer",
+      "meta.homeDesc": "0Nyx, independent developer. Web, mobile, and AI work.",
+      "meta.projectsTitle": "Open source - 0Nyx",
+      "meta.projectsDesc": "0Nyx’s open-source projects. Search by name or stack.",
+      "meta.awardsTitle": "Awards - 0Nyx",
+      "meta.awardsDesc": "Awards. Search by year, contest, or place.",
+      "meta.articlesTitle": "Notes - 0Nyx",
+      "meta.articlesDesc": "Notes. Search by title or tag.",
+      "meta.listeneTitle": "ListenE - 0Nyx",
+      "meta.listeneDesc": "An Android AI agent for English listening: generated audio, practice cards, and error review.",
+      "meta.mqltTitle": "MQLT - 0Nyx",
+      "meta.mqltDesc": "A field-study platform for Inner Mongolia’s food industry: booking, check-in, archives, a points shop, and an ops console.",
+      "meta.homepageTitle": "HomePage - 0Nyx",
+      "meta.homepageDesc": "Source for this site. Dark pages, project list and detail views — fork it if you like the design.",
+      "meta.equaTitle": "Equamotion - 0Nyx",
+      "meta.equaDesc": "Build physics scenes in a 3D lab, tweak parameters, and read them against the equations. Concept build.",
+      "meta.wasabiTitle": "Wasabi object storage - 0Nyx",
+      "meta.wasabiDesc": "No egress or request fees. $6.99 / month for the first 1 TB. 30-day trial. Download peaks around 30 MB/s.",
+      "p.role": "Role",
+      "p.status": "Status",
+      "p.year": "Year",
+      "p.date": "Date",
+      "p.type": "Type",
+      "p.minFee": "Floor price",
+      "p.indie": "Solo",
+      "p.indieFull": "Solo full-stack",
+      "p.public": "Public repo",
+      "p.concept": "Concept",
+      "p.recommend": "Note",
+      "p.github": "GitHub repo",
+      "p.mirror": "Can’t open GitHub? Download the zip",
+      "p.openRepo": "Open repo",
+      "p.what": "What it is",
+      "p.did": "What I built",
+      "p.stack": "Stack",
+      "listene.lede": "An Android AI agent for English study. Listening generation, practice cards, and error review live in one workspace.",
+      "listene.p1": "ListenE is not a question bank. You describe what you need in natural language; the agent generates audio, cards, and speech, then stores the work.",
+      "listene.p2": "The client is Kotlin and Jetpack Compose. The backend is NestJS and PostgreSQL for sessions, cards, progress, and TTS.",
+      "listene.b1": "Android client: chat, card drills, intensive replay, and phrase review.",
+      "listene.b2": "NestJS backend: listening generation, card contracts, workspace, and progress.",
+      "listene.b3": "Wired LLMs and TTS into a real study loop, not a demo chat.",
+      "listene.bubble1": "Generate an IELTS listening drill",
+      "listene.bubble2": "Ready · dialogue + 5 items + audio",
+      "mqlt.lede": "A collegiate innovation contest project. Food-industry resources in Inner Mongolia become a loop you can book, walk, stamp, and archive.",
+      "mqlt.p1": "MQLT is built for food-industry field study in Inner Mongolia. Students use a UniApp X WeChat mini program; ops is Vue 3; the API is NestJS, Prisma, and PostgreSQL.",
+      "mqlt.p2": "The loop covers booking, on-site stamps, knowledge tasks, archives, points, a merch shop, and a permissioned console.",
+      "mqlt.b1": "Designed booking, stamps, tasks, certificates, and points redemption.",
+      "mqlt.b2": "Built the student mini program, ops console, and data model together.",
+      "mqlt.b3": "Deployed and wired the mini program, console, and API onto one contract.",
+      "mqlt.canvas": "Illustration of the MQLT field-study ops dashboard",
+      "mqlt.preview": "Field-study preview",
+      "mqlt.m1": "Programs",
+      "mqlt.m2": "Check-ins",
+      "mqlt.m3": "Archives",
+      "mqlt.trend": "Check-in trend",
+      "mqlt.days": "Last 7 days",
+      "mqlt.live": "Live feed",
+      "mqlt.a1": "Sample route",
+      "mqlt.a2": "Archive upload",
+      "mqlt.a3": "Study log",
+      "mqlt.done": "Done",
+      "mqlt.pending": "In review",
+      "hp.lede": "Source for this website. Static HTML / CSS / JS, no framework. If you like the design, download it and make it yours.",
+      "hp.p1": "This is the 0nyx.cn homepage. Intro, awards, the project list, detail pages, and the stack marquee all live in this repo.",
+      "hp.p2": "Static site, no build step. Assets use relative paths, so it runs locally after download. Fork it or grab the zip.",
+      "hp.b1": "Laid out the pages, styles, and interaction, including the project list and details.",
+      "hp.b2": "Packaged the source as a static repo you can download and reuse.",
+      "hp.b3": "Fonts, avatar, and page assets ship in the repo, so it runs without this domain.",
+      "equa.kicker": "Godot / concept",
+      "equa.lede": "Equamotion. Stage mechanics in a 3D lab, change the numbers, and match them to the equations. Concept build.",
+      "equa.p1": "Equamotion is meant to get mechanics off the page. Walk into a 3D lab, set a scene, change parameters, watch the motion, and read it against the formula.",
+      "equa.p2": "It is still a concept: walk in, build a scene, and line it up with the equation.",
+      "equa.b1": "First-person 3D lab in Godot.",
+      "equa.b2": "Rigid-body scenes with editable physics parameters.",
+      "equa.b3": "Motion and formulas in the same space.",
+      "equa.note": "Source is not public yet. Email me if you want the details.",
+      "equa.canvas": "First-person Equamotion lab preview",
+      "wasabi.kicker": "Object storage / CDN",
+      "wasabi.lede": "Wasabi does not charge for egress or requests. Floor price is $6.99 / month for 1 TB. 30-day trial. I have seen download peaks around 30 MB/s.",
+      "wasabi.h1": "Why I use it",
+      "wasabi.p1": "Most object stores bill egress and requests. That gets ugly fast. Wasabi is S3-compatible and only charges for what you store.",
+      "wasabi.p1html": "Most object stores bill egress and requests. That gets ugly fast. <a href=\"https://wasabi.com/\" rel=\"noopener\" target=\"_blank\">Wasabi</a> is S3-compatible and only charges for what you store.",
+      "wasabi.p2": "New accounts get a 30-day trial. Upload a few files and see. Site: wasabi.com.",
+      "wasabi.p2html": "New accounts get a 30-day trial. Upload a few files and see. Site: <a href=\"https://wasabi.com/\" rel=\"noopener\" target=\"_blank\">wasabi.com</a>.",
+      "wasabi.h2": "Pricing",
+      "wasabi.p3": "The monthly floor is 1 TB at $6.99. 200 GB still costs 1 TB. Past 1 TB, each extra TB is another $6.99.",
+      "wasabi.b1": "200 GB: $6.99",
+      "wasabi.b2": "1 TB: $6.99",
+      "wasabi.b3": "2 TB: $13.98",
+      "wasabi.b4": "3 TB: $20.97",
+      "wasabi.p4": "Delete an object before 90 days and you still pay for 90 days. Overwrites count the same. After 90 days, you only pay for what remains. It is a poor scratch disk and a good long-term store.",
+      "wasabi.h3": "Regions",
+      "wasabi.p5": "North America: Virginia, Texas, Oregon, plus Toronto. Europe: Amsterdam and London. APAC: Tokyo, Singapore, Sydney. Pick the closest.",
+      "wasabi.h4": "Buckets stay private by default",
+      "wasabi.p6": "Wasabi does not let you flip a bucket public without a ticket. They want a human in the loop so people do not host random files.",
+      "wasabi.h5": "Put free EdgeOne in front",
+      "wasabi.p7": "You do not have to make the bucket public. Put Tencent’s free EdgeOne in front and origin-pull Wasabi with a key. Visitors hit the CDN; the bucket stays private.",
+      "wasabi.p7html": "You do not have to make the bucket public. Put Tencent’s free <a href=\"https://cloud.tencent.com/product/teo\" rel=\"noopener\" target=\"_blank\">EdgeOne</a> in front and origin-pull Wasabi with a key. Visitors hit the CDN; the bucket stays private.",
+      "wasabi.p8": "There are nodes in China, so a cache helps. I have seen peaks around 30 MB/s. The free plan is enough for a personal site until traffic actually explodes.",
+      "wasabi.p9": "Pricing and trial terms can change. Check Wasabi pricing and EdgeOne before you buy.",
+      "wasabi.p9html": "Pricing and trial terms can change. Check <a href=\"https://wasabi.com/pricing\" rel=\"noopener\" target=\"_blank\">Wasabi pricing</a> and <a href=\"https://cloud.tencent.com/product/teo\" rel=\"noopener\" target=\"_blank\">EdgeOne</a> before you buy.",
+      "wasabi.official": "Links",
+      "wasabi.back": "Back to notes",
+      "term.help": "list commands",
+      "term.helpHead": "commands:",
+      "term.helpMore": "unix classics work too: ls / cat / echo / pwd / date …",
+      "term.helpHint": "Tab completes · ↑↓ history",
+      "term.aboutMe": "about me",
+      "term.about1": "I am 0Nyx, a full-stack developer.",
+      "term.about2": "Software Engineering at Inner Mongolia Normal University, School of Computer Science and Technology, class of 2025.",
+      "term.about3": "I ship web, mobile, and AI projects — backend, data, UI, and deploys.",
+      "term.about4": "Award: 2026 China Collegiate Computing Contest AIGC Innovation · North China Regional Second Prize",
+      "term.skills": "stack",
+      "term.projects": "open source",
+      "term.status": "site status",
+      "term.contact": "contact",
+      "term.open": "open a page",
+      "term.meow": "pixel cat",
+      "term.clear": "clear screen (Ctrl+L)",
+      "term.who": "who I am",
+      "term.helpOpen": "open a page (open for the list)",
+      "term.cat": "a pixel cat",
+      "term.projectsHint": "(easter egg is in the avatar — try meow)",
+      "term.contactHint": "Want to talk shop? Email is welcome.",
+      "term.openUsage": "usage: open <site>",
+      "term.openSites": "sites: ",
+      "term.openUnknown": "open: unknown “{0}”. try: ",
+      "term.opening": "opening ",
+      "term.meowLine": " ( o.o )  meow",
+      "term.meowLink": "full version → ",
+      "term.lsMiss": "ls: cannot access '{0}': No such file or directory",
+      "term.catMiss": "cat: missing file, try cat about.txt",
+      "term.catNo": "cat: {0}: No such file or directory",
+      "term.sudo": "sudo: permission denied. there is one root here, and you are on his homepage :)",
+      "term.rm": "rm: read-only file system. nice try :)",
+      "term.cd": "static site. nowhere to go. try open <site>.",
+      "term.exit": "you can close the tab, but why leave :)",
+      "term.editor": "{0}: rude to write code in someone else's terminal :)",
+      "term.notFound": "type help for commands",
+      "term.listene": "ListenE       Android AI agent → ",
+      "term.mqlt": "MQLT          field-study stack → ",
+      "term.homepage": "HomePage      this site → ",
+      "term.equa": "Equamotion    3D physics lab → ",
+      "term.moreCode": "more code     ",
+      "term.skillM": "mobile    Kotlin · Jetpack Compose · Material 3 · UniApp X",
+      "term.skillB": "backend   NestJS · Node.js · TypeScript · Fastify · Prisma · PostgreSQL · Redis",
+      "term.skillF": "frontend  Vue 3 · Vite · HTML / CSS · Canvas",
+      "term.skillA": "AI        LLM glue · TTS / ASR · agent orchestration",
+      "term.skillG": "games     Godot 4.7 · GDScript · Jolt Physics",
+      "term.skillD": "ops       Git · Docker · AWS S3",
+    },
+  };
+
+  const readLang = () => {
+    const attr = document.documentElement.getAttribute("data-lang");
+    if (attr === "en" || attr === "zh") return attr;
+    try {
+      const stored = localStorage.getItem(LANG_KEY);
+      if (stored === "en" || stored === "zh") return stored;
+    } catch (err) {}
+    return "zh";
+  };
+
+  let lang = readLang();
+  const t = (key, vars) => {
+    let value = (I18N[lang] && I18N[lang][key]) || I18N.zh[key] || key;
+    if (vars) {
+      Object.keys(vars).forEach((k) => {
+        value = value.replace("{" + k + "}", vars[k]);
+      });
+    }
+    return value;
+  };
+
+  const applyI18n = () => {
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (!key) return;
+      if (el.hasAttribute("data-i18n-html")) el.innerHTML = t(key);
+      else el.textContent = t(key);
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
+    });
+    document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+      el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria")));
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach((el) => {
+      el.setAttribute("title", t(el.getAttribute("data-i18n-title")));
+    });
+    document.querySelectorAll("[data-i18n-content]").forEach((el) => {
+      el.setAttribute("content", t(el.getAttribute("data-i18n-content")));
+    });
+    document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+      el.setAttribute("alt", t(el.getAttribute("data-i18n-alt")));
+    });
+    const titleKey = document.documentElement.getAttribute("data-i18n-title");
+    if (titleKey) document.title = t(titleKey);
+    const langBtn = document.getElementById("langToggle");
+    if (langBtn) langBtn.setAttribute("aria-label", t(lang === "en" ? "lang.toggle" : "lang.toggle"));
+    if (langBtn) {
+      langBtn.setAttribute("aria-label", lang === "en" ? I18N.en["lang.toggle"] : I18N.zh["lang.toggle"]);
+    }
+    const navToggle = document.getElementById("navToggle");
+    if (navToggle) {
+      const open = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-label", t(open ? "nav.close" : "nav.open"));
+    }
+  };
+
+  const setLang = (next) => {
+    lang = next === "en" ? "en" : "zh";
+    document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+    document.documentElement.setAttribute("data-lang", lang);
+    try {
+      localStorage.setItem(LANG_KEY, lang);
+    } catch (err) {}
+    applyI18n();
+    document.documentElement.classList.add("i18n-ready");
+    document.dispatchEvent(new CustomEvent("onyx:lang", { detail: { lang } }));
+  };
+
+  window.onyxI18n = { t, getLang: () => lang, setLang, apply: applyI18n };
+
+  setLang(lang);
+
+  const langToggle = document.getElementById("langToggle");
+  if (langToggle) {
+    langToggle.addEventListener("click", () => setLang(lang === "en" ? "zh" : "en"));
+  }
+
   /* ---------- always enter at the top (keep hash links working) ---------- */
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   if (!window.location.hash) {
@@ -40,7 +611,7 @@
     const inertTargets = Array.from(document.querySelectorAll("main, .site-footer"));
     const setMenuOpen = (open, restoreFocus = false) => {
       navToggle.setAttribute("aria-expanded", String(open));
-      navToggle.setAttribute("aria-label", open ? "关闭导航" : "打开导航");
+      navToggle.setAttribute("aria-label", t(open ? "nav.close" : "nav.open"));
       mobileNav.hidden = !open;
       navScrim.hidden = !open;
       header.classList.toggle("is-menu-open", open);
@@ -414,7 +985,7 @@
       ctx.globalAlpha = 1;
       label("github.com/MarkHayford/MQLT", 58, 20, 7.5, "rgba(255,255,255,0.46)", 400, "left", true);
 
-      label("研学项目示意", 20, 56, 13, "#f2f5f3", 700);
+      label(t("mqlt.preview"), 20, 56, 13, "#f2f5f3", 700);
       ctx.beginPath();
       ctx.fillStyle = "#5fe9aa";
       ctx.arc(362, 52, 3 + Math.sin(phase * 2.2) * 0.7, 0, Math.PI * 2);
@@ -422,9 +993,9 @@
       label("LIVE", 372, 55, 7.5, "#5fe9aa", 500, "left", true);
 
       const metrics = [
-        ["研学项目", "24", "+3"],
-        ["本月打卡", "128", "+8"],
-        ["成果档案", "846", "+12%"]
+        [t("mqlt.m1"), "24", "+3"],
+        [t("mqlt.m2"), "128", "+8"],
+        [t("mqlt.m3"), "846", "+12%"]
       ];
       metrics.forEach((metric, index) => {
         const x = 20 + index * 134;
@@ -443,8 +1014,8 @@
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.08)";
       ctx.stroke();
-      label("打卡趋势", 32, 146, 8, "rgba(255,255,255,0.6)", 600);
-      label("近 7 日", 258, 146, 6.8, "rgba(255,255,255,0.35)", 400, "right");
+      label(t("mqlt.trend"), 32, 146, 8, "rgba(255,255,255,0.6)", 600);
+      label(t("mqlt.days"), 258, 146, 6.8, "rgba(255,255,255,0.35)", 400, "right");
 
       const values = [0.38, 0.58, 0.46, 0.72, 0.62, 0.86, 0.78];
       values.forEach((value, index) => {
@@ -464,12 +1035,12 @@
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,0.08)";
       ctx.stroke();
-      label("实时动态", 296, 146, 8, "rgba(255,255,255,0.6)", 600);
+      label(t("mqlt.live"), 296, 146, 8, "rgba(255,255,255,0.6)", 600);
 
       const activity = [
-        ["示例路线", "已完成"],
-        ["成果提交", "待审核"],
-        ["学习记录", "已完成"]
+        [t("mqlt.a1"), t("mqlt.done")],
+        [t("mqlt.a2"), t("mqlt.pending")],
+        [t("mqlt.a3"), t("mqlt.done")]
       ];
       activity.forEach((item, index) => {
         const y = 166 + index * 27;
@@ -535,6 +1106,7 @@
     }
 
     document.addEventListener("visibilitychange", start);
+    document.addEventListener("onyx:lang", start);
     document.fonts.ready.then(() => {
       resize();
       start();
@@ -867,30 +1439,29 @@
       await navigator.clipboard.writeText(value);
       showToast(okMsg);
       if (trigger) {
-        const originalLabel = trigger.textContent;
-        trigger.textContent = "已复制";
+        trigger.textContent = t("copy.ok");
         trigger.classList.add("is-copied");
         window.setTimeout(() => {
-          trigger.textContent = originalLabel;
           trigger.classList.remove("is-copied");
+          applyI18n();
         }, 1800);
       }
     } catch (err) {
-      showToast("复制失败，请手动复制");
+      showToast(t("copy.fail"));
     }
   };
 
   const copyBtn = document.getElementById("copyEmail");
   if (copyBtn) {
     copyBtn.addEventListener("click", () =>
-      copyText(copyBtn.getAttribute("data-email") || "", "邮箱已复制", copyBtn)
+      copyText(copyBtn.getAttribute("data-email") || "", t("copy.email"), copyBtn)
     );
   }
 
   const copyWechat = document.getElementById("copyWechat");
   if (copyWechat) {
     copyWechat.addEventListener("click", () =>
-      copyText(copyWechat.getAttribute("data-wechat") || "", "微信号已复制")
+      copyText(copyWechat.getAttribute("data-wechat") || "", t("copy.wechat"))
     );
   }
 
@@ -1047,63 +1618,63 @@
 
     const commands = {
       help: {
-        desc: "查看可用命令",
+        desc: () => t("term.help"),
         run() {
-          out("可用命令：");
+          out(t("term.helpHead"));
           [
-            ["help", "查看可用命令"],
-            ["about", "关于我"],
-            ["skills", "技术栈"],
-            ["projects", "开源项目"],
-            ["status", "站点状态"],
-            ["contact", "联系方式"],
-            ["open <site>", "打开站点（open 查看列表）"],
-            ["meow", "一只像素小猫"],
-            ["clear", "清屏（Ctrl+L）"],
+            ["help", t("term.help")],
+            ["about", t("term.aboutMe")],
+            ["skills", t("term.skills")],
+            ["projects", t("term.projects")],
+            ["status", t("term.status")],
+            ["contact", t("term.contact")],
+            ["open <site>", t("term.helpOpen")],
+            ["meow", t("term.cat")],
+            ["clear", t("term.clear")],
           ].forEach(([name, desc]) => out("  " + name.padEnd(14, " ") + desc));
-          out("还有一些经典命令也能用：ls / cat / echo / pwd / date …");
-          out("Tab 补全 · ↑↓ 历史");
+          out(t("term.helpMore"));
+          out(t("term.helpHint"));
         },
       },
       whoami: {
-        desc: "我是谁",
+        desc: () => t("term.who"),
         run() {
           out("0Nyx · full-stack developer");
         },
       },
       about: {
-        desc: "关于我",
+        desc: () => t("term.aboutMe"),
         run() {
-          out("我是 0Nyx，全栈开发者。");
-          out("目前就读于内蒙古师范大学计算机科学技术学院软件工程专业，2025 级。");
-          out("做 Web、移动端和 AI 方向的项目，从后端、数据到界面，再到部署上线，都能够独立完成。");
-          out("奖项：2026 中国高校计算机大赛 AIGC 创新赛 · 华北赛区二等奖");
+          out(t("term.about1"));
+          out(t("term.about2"));
+          out(t("term.about3"));
+          out(t("term.about4"));
         },
       },
       skills: {
-        desc: "技术栈",
+        desc: () => t("term.skills"),
         run() {
-          out("移动端    Kotlin · Jetpack Compose · Material 3 · UniApp X");
-          out("后端      NestJS · Node.js · TypeScript · Fastify · Prisma · PostgreSQL · Redis");
-          out("前端      Vue 3 · Vite · HTML / CSS · Canvas");
-          out("AI        LLM 集成 · TTS / ASR · Agent 编排");
-          out("游戏      Godot 4.7 · GDScript · Jolt Physics");
-          out("部署      Git · Docker · AWS S3");
+          out(t("term.skillM"));
+          out(t("term.skillB"));
+          out(t("term.skillF"));
+          out(t("term.skillA"));
+          out(t("term.skillG"));
+          out(t("term.skillD"));
         },
       },
       projects: {
-        desc: "开源项目",
+        desc: () => t("term.projects"),
         run() {
-          printLink("ListenE       Android AI Agent → ", "/projects/listene/");
-          printLink("蒙企链探      研学全栈平台 → ", "/projects/mqlt/");
-          printLink("HomePage      个人主页源码 → ", "/projects/homepage/");
-          printLink("方程剧场      3D 物理实验室 → ", "/projects/equamotion/");
-          printLink("更多代码      ", "https://github.com/MarkHayford");
-          out("（彩蛋藏在头像里，试试 meow）");
+          printLink(t("term.listene"), "/projects/listene/");
+          printLink(t("term.mqlt"), "/projects/mqlt/");
+          printLink(t("term.homepage"), "/projects/homepage/");
+          printLink(t("term.equa"), "/projects/equamotion/");
+          printLink(t("term.moreCode"), "https://github.com/MarkHayford");
+          out(t("term.projectsHint"));
         },
       },
       status: {
-        desc: "站点状态",
+        desc: () => t("term.status"),
         run() {
           const p = makeLine("term__line--out");
           const ok = document.createElement("span");
@@ -1116,42 +1687,42 @@
         },
       },
       contact: {
-        desc: "联系方式",
+        desc: () => t("term.contact"),
         run() {
           out("email   markhayford816@icloud.com");
           out("wechat  ITGao06");
           printLink("github  ", "https://github.com/MarkHayford");
-          out("想交流技术的话，欢迎发邮件。");
+          out(t("term.contactHint"));
         },
       },
       open: {
-        desc: "打开站点",
+        desc: () => t("term.open"),
         run(args) {
           const target = (args[0] || "").toLowerCase().replace(/\/$/, "");
           if (!target) {
-            out("用法：open <site>");
-            out("可用站点：" + Object.keys(SITES).join(" · "));
+            out(t("term.openUsage"));
+            out(t("term.openSites") + Object.keys(SITES).join(" · "));
             return;
           }
           if (!SITES[target]) {
-            err("open: 不认识 “" + target + "”，可用：" + Object.keys(SITES).join(" · "));
+            err(t("term.openUnknown", { 0: target }) + Object.keys(SITES).join(" · "));
             return;
           }
-          printLink("正在打开 ", SITES[target]);
+          printLink(t("term.opening"), SITES[target]);
           window.open(SITES[target], "_blank", "noopener");
         },
       },
       meow: {
-        desc: "像素小猫",
+        desc: () => t("term.meow"),
         run() {
           out("  /\\_/\\");
-          out(" ( o.o )  喵～");
+          out(t("term.meowLine"));
           out("  > ^ <");
-          printLink("完整版在这里 → ", "/meow/");
+          printLink(t("term.meowLink"), "/meow/");
         },
       },
       clear: {
-        desc: "清屏",
+        desc: () => t("term.clear"),
         run() {
           termOut.textContent = "";
         },
@@ -1163,7 +1734,7 @@
           if (!dir || dir === ".") out("skills/  projects/  about.txt  contact.txt");
           else if (dir === "skills") out("android/  web/  backend/  ai/");
           else if (dir === "projects") out("listene/  mqlt/  homepage/  equamotion/");
-          else err("ls: 无法访问 '" + dir + "': 没有那个文件或目录");
+          else err(t("term.lsMiss", { 0: dir }));
         },
       },
       cat: {
@@ -1172,8 +1743,8 @@
           const file = args[0] || "";
           if (file === "about.txt") commands.about.run([]);
           else if (file === "contact.txt") commands.contact.run([]);
-          else if (!file) err("cat: 缺少文件名，试试 cat about.txt");
-          else err("cat: " + file + ": 没有那个文件或目录");
+          else if (!file) err(t("term.catMiss"));
+          else err(t("term.catNo", { 0: file }));
         },
       },
       echo: {
@@ -1220,23 +1791,23 @@
       const args = parts.slice(1);
 
       if (name === "sudo") {
-        err("sudo: 权限不足。这里只有一个 root，而你正在看他的主页 :)");
+        err(t("term.sudo"));
         return;
       }
       if (name === "rm") {
-        err("rm: 只读文件系统。想得美 :)");
+        err(t("term.rm"));
         return;
       }
       if (name === "cd") {
-        out("这是个静态站，哪儿也去不了。试试 open <site>。");
+        out(t("term.cd"));
         return;
       }
       if (name === "exit" || name === "logout") {
-        out("你可以关掉标签页，但为什么要走呢 :)");
+        out(t("term.exit"));
         return;
       }
       if (name === "vim" || name === "vi" || name === "nano" || name === "emacs") {
-        out(name + ": 在别人的终端里写代码可不礼貌 :)");
+        out(t("term.editor", { 0: name }));
         return;
       }
       if (commands[name]) {
@@ -1244,7 +1815,7 @@
         return;
       }
       err("zsh: command not found: " + name);
-      out("输入 help 查看可用命令");
+      out(t("term.notFound"));
     };
 
     const completions = () => Object.keys(commands).concat(["sudo", "cd", "exit", "work"]);
@@ -1326,12 +1897,12 @@
       input.setAttribute("autocorrect", "off");
       input.setAttribute("spellcheck", "false");
       input.setAttribute("enterkeyhint", "send");
-      input.setAttribute("aria-label", "终端命令输入，输入 help 查看命令，Tab 补全，上下方向键翻历史");
+      input.setAttribute("aria-label", t("term.inputAria"));
       form.appendChild(label);
       form.appendChild(input);
       termCaretLine.replaceWith(form);
 
-      out("tip: 输入 help 查看命令");
+      out(t("term.tip"));
 
       form.addEventListener("submit", (event) => {
         event.preventDefault();

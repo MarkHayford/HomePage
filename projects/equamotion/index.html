@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-i18n-title="meta.equaTitle">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" href="https://dl.0nyx.cn/homepage/assets/favicon.png?v=2" />
     <title>方程剧场 - 0Nyx</title>
-    <meta name="description" content="在 3D 实验室里搭物理场景，改参数看运动，再对照公式。目前是概念版。" />
+    <meta name="description" data-i18n-content="meta.equaDesc" content="在 3D 实验室里搭物理场景，改参数看运动，再对照公式。目前是概念版。" />
     <link rel="canonical" href="https://www.0nyx.cn/projects/equamotion/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="0Nyx" />
@@ -25,14 +25,25 @@
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/noto-sans-sc-page.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260829a.css" />
+    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260920c.css" />
     <link rel="stylesheet" href="/beian.css?v=20260826a" />
     <script>
-      document.documentElement.classList.add("js");
+            document.documentElement.classList.add("js");
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get("lang");
+          var stored = localStorage.getItem("0nyx-lang");
+          var lang = q === "en" || q === "zh" ? q : stored === "en" || stored === "zh" ? stored : "zh";
+          if (q === "en" || q === "zh") localStorage.setItem("0nyx-lang", q);
+          document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-lang", lang);
+          setTimeout(function () { document.documentElement.classList.add("i18n-ready"); }, 2500);
+        } catch (e) {}
+      })();
     </script>
   </head>
   <body class="page-project">
-    <a class="skip-link" href="#project">跳到项目</a>
+    <a class="skip-link" href="#project" data-i18n="skip.project">跳到项目</a>
 
     <div class="page-field" aria-hidden="true">
       <canvas class="page-field__canvas" id="field"></canvas>
@@ -40,62 +51,69 @@
     </div>
 
     <header class="site-header" id="top">
-      <a class="brand" href="/" aria-label="0Nyx 首页">
+      <a class="brand" href="/" data-i18n-aria="brand.home" aria-label="0Nyx 首页">
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__text">0<span class="brand__accent">Nyx</span></span>
       </a>
-      <nav class="site-nav" aria-label="主导航">
-        <a href="/#about">关于</a>
-        <a href="/#awards">奖项</a>
-        <a href="/#work">作品</a>
-        <a href="/#articles">文章</a>
-        <a class="site-nav__cta" href="/#contact">联系</a>
+      <nav class="site-nav" data-i18n-aria="nav.main" aria-label="主导航">
+        <a href="/#about" data-i18n="nav.about">关于</a>
+        <a href="/#awards" data-i18n="nav.awards">奖项</a>
+        <a href="/#work" data-i18n="nav.work">作品</a>
+        <a href="/#articles" data-i18n="nav.articles">文章</a>
+        <a class="site-nav__cta" href="/#contact" data-i18n="nav.contact">联系</a>
       </nav>
-      <button
+            <div class="header-tools">
+        <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="lang.toggle" aria-label="切换为英文">
+          <span class="lang-toggle__zh">中</span>
+          <span class="lang-toggle__sep" aria-hidden="true">/</span>
+          <span class="lang-toggle__en">EN</span>
+        </button>
+        <button
         class="nav-toggle"
         id="navToggle"
         type="button"
         aria-expanded="false"
         aria-controls="mobileNav"
-        aria-label="打开导航"
+        data-i18n-aria="nav.open" aria-label="打开导航"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-      <nav class="mobile-nav" id="mobileNav" aria-label="移动端导航" hidden>
-        <a href="/#about"><span class="mono">01</span>关于</a>
-        <a href="/#awards"><span class="mono">02</span>奖项</a>
-        <a href="/#work"><span class="mono">03</span>作品</a>
-        <a href="/#articles"><span class="mono">04</span>文章</a>
-        <a href="/#contact"><span class="mono">05</span>联系</a>
+      </div>
+      <nav class="mobile-nav" id="mobileNav" data-i18n-aria="nav.mobile" aria-label="移动端导航" hidden>
+        <a href="/#about"><span class="mono">01</span><span data-i18n="nav.about">关于</span></a>
+        <a href="/#awards"><span class="mono">02</span><span data-i18n="nav.awards">奖项</span></a>
+        <a href="/#work"><span class="mono">03</span><span data-i18n="nav.work">作品</span></a>
+        <a href="/#articles"><span class="mono">04</span><span data-i18n="nav.articles">文章</span></a>
+        <a href="/#contact"><span class="mono">05</span><span data-i18n="nav.contact">联系</span></a>
       </nav>
     </header>
-    <button class="nav-scrim" id="navScrim" type="button" aria-label="关闭导航" hidden></button>
+    <button class="nav-scrim" id="navScrim" type="button" data-i18n-aria="nav.scrim" aria-label="关闭导航" hidden></button>
 
     <main>
       <article class="section project-page" id="project">
         <p class="project-crumb mono">
-          <a href="/#work">开源项目</a>
+          <a href="/#work" data-i18n="work.crumb">开源项目</a>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
-          <span>方程剧场</span>
+          <span data-i18n="work.equa.title">方程剧场</span>
         </p>
 
         <header class="project-hero">
           <div>
-            <p class="project-kicker mono">Godot / 概念版</p>
-            <h1>方程剧场</h1>
-            <p class="project-hero__lede">Equamotion。在 3D 实验室里把力学过程摆出来看，改参数，对照公式。目前是概念版。</p>
+            <p class="project-kicker mono" data-i18n="equa.kicker">Godot / 概念版</p>
+            <h1 data-i18n="work.equa.title">方程剧场</h1>
+            <p class="project-hero__lede" data-i18n="equa.lede">Equamotion。在 3D 实验室里把力学过程摆出来看，改参数，对照公式。目前是概念版。</p>
             <dl class="project-meta">
               <div>
-                <dt class="mono">角色</dt>
-                <dd>独立开发</dd>
+                <dt class="mono" data-i18n="p.role">角色</dt>
+                <dd data-i18n="p.indie">独立开发</dd>
               </div>
               <div>
-                <dt class="mono">状态</dt>
-                <dd>概念版</dd>
+                <dt class="mono" data-i18n="p.status">状态</dt>
+                <dd data-i18n="p.concept">概念版</dd>
               </div>
               <div>
-                <dt class="mono">年份</dt>
+                <dt class="mono" data-i18n="p.year">年份</dt>
                 <dd>2026</dd>
               </div>
             </dl>
@@ -108,27 +126,27 @@
               width="760"
               height="480"
               role="img"
-              aria-label="方程剧场第一人称实验室示意动画"
-            >方程剧场第一人称实验室示意图</canvas>
+              data-i18n-aria="equa.canvas" aria-label="方程剧场第一人称实验室示意动画"
+             data-i18n="equa.canvas">方程剧场第一人称实验室示意图</canvas>
           </div>
         </header>
 
         <div class="project-grid">
           <div class="project-copy">
-            <h2>这个项目做什么</h2>
-            <p>方程剧场想让力学不再停在纸面。走进一个 3D 实验室，摆出场景，改参数，看运动怎么变，再和公式对上。</p>
-            <p>现在还是概念版，先把「能走进去、能搭场景、能对照公式」这条主路径立住。</p>
-            <h2>自己做了什么</h2>
+            <h2 data-i18n="p.what">这个项目做什么</h2>
+            <p data-i18n="equa.p1">方程剧场想让力学不再停在纸面。走进一个 3D 实验室，摆出场景，改参数，看运动怎么变，再和公式对上。</p>
+            <p data-i18n="equa.p2">现在还是概念版，先把「能走进去、能搭场景、能对照公式」这条主路径立住。</p>
+            <h2 data-i18n="p.did">自己做了什么</h2>
             <ul class="project-points">
-              <li>用 Godot 搭第一人称 3D 实验室。</li>
-              <li>能生成刚体场景，并改物理参数。</li>
-              <li>把运动过程和公式放在同一空间里对照。</li>
+              <li data-i18n="equa.b1">用 Godot 搭第一人称 3D 实验室。</li>
+              <li data-i18n="equa.b2">能生成刚体场景，并改物理参数。</li>
+              <li data-i18n="equa.b3">把运动过程和公式放在同一空间里对照。</li>
             </ul>
           </div>
           <aside class="project-aside">
-            <h2>技术栈</h2>
+            <h2 data-i18n="p.stack">技术栈</h2>
             <ul class="tags"><li>Godot 4.7</li><li>GDScript</li><li>Jolt Physics</li><li>Forward Plus</li></ul>
-            <p class="project-aside__note">源码尚未公开。需要了解细节可以直接联系我。</p>
+            <p class="project-aside__note" data-i18n="equa.note">源码尚未公开。需要了解细节可以直接联系我。</p>
           </aside>
         </div>
       </article>
@@ -136,13 +154,13 @@
 
     <footer class="site-footer">
       <span class="mono">© <span id="year">2026</span> 0Nyx</span>
-      <nav class="site-footer__links mono" aria-label="站点链接">
+      <nav class="site-footer__links mono" data-i18n-aria="footer.links" aria-label="站点链接">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">蒙ICP备2026008558号-1</a>
         <a class="beian-gongan" href="https://beian.mps.gov.cn/#/query/webSearch?code=15072102000072" target="_blank" rel="noopener"><img src="/assets/gongan.png" width="18" height="18" alt="" />蒙公网安备15072102000072号</a>
       </nav>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="https://dl.0nyx.cn/homepage/script.20260920a.js"></script>
+    <script src="https://dl.0nyx.cn/homepage/script.20260920c.js"></script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-i18n-title="meta.homeTitle">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,6 +9,7 @@
     <title>0Nyx — 全栈开发者</title>
     <meta
       name="description"
+      data-i18n-content="meta.homeDesc"
       content="0Nyx，个人开发者。这里放我在 Web、移动端和 AI 方向做过的项目。"
     />
     <link rel="canonical" href="https://www.0nyx.cn/" />
@@ -34,15 +35,26 @@
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/noto-sans-sc-page.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260829a.css" />
+    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260920c.css" />
     <link rel="stylesheet" href="/beian.css?v=20260826a" />
     <script>
       // Mark JS available so reveal animations enhance an already-visible baseline.
-      document.documentElement.classList.add("js");
+            document.documentElement.classList.add("js");
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get("lang");
+          var stored = localStorage.getItem("0nyx-lang");
+          var lang = q === "en" || q === "zh" ? q : stored === "en" || stored === "zh" ? stored : "zh";
+          if (q === "en" || q === "zh") localStorage.setItem("0nyx-lang", q);
+          document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-lang", lang);
+          setTimeout(function () { document.documentElement.classList.add("i18n-ready"); }, 2500);
+        } catch (e) {}
+      })();
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#about">跳到关于</a>
+    <a class="skip-link" href="#about" data-i18n="skip.about">跳到关于</a>
 
     <!-- Full-page pointer field (page-space lattice; scrolls with document) -->
     <div class="page-field" aria-hidden="true">
@@ -51,45 +63,52 @@
     </div>
 
     <header class="site-header" id="top">
-      <a class="brand" href="#top" aria-label="0Nyx 首页">
+      <a class="brand" href="#top" data-i18n-aria="brand.home" aria-label="0Nyx 首页">
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__text">0<span class="brand__accent">Nyx</span></span>
       </a>
-      <nav class="site-nav" aria-label="主导航">
-        <a href="#about">关于</a>
-        <a href="#awards">奖项</a>
-        <a href="#work">作品</a>
-        <a href="#articles">文章</a>
-        <a class="site-nav__cta" href="#contact">联系</a>
+      <nav class="site-nav" data-i18n-aria="nav.main" aria-label="主导航">
+        <a href="#about" data-i18n="nav.about">关于</a>
+        <a href="#awards" data-i18n="nav.awards">奖项</a>
+        <a href="#work" data-i18n="nav.work">作品</a>
+        <a href="#articles" data-i18n="nav.articles">文章</a>
+        <a class="site-nav__cta" href="#contact" data-i18n="nav.contact">联系</a>
       </nav>
-      <button
+            <div class="header-tools">
+        <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="lang.toggle" aria-label="切换为英文">
+          <span class="lang-toggle__zh">中</span>
+          <span class="lang-toggle__sep" aria-hidden="true">/</span>
+          <span class="lang-toggle__en">EN</span>
+        </button>
+        <button
         class="nav-toggle"
         id="navToggle"
         type="button"
         aria-expanded="false"
         aria-controls="mobileNav"
-        aria-label="打开导航"
+        data-i18n-aria="nav.open" aria-label="打开导航"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-      <nav class="mobile-nav" id="mobileNav" aria-label="移动端导航" hidden>
-        <a href="#about"><span class="mono">01</span>关于</a>
-        <a href="#awards"><span class="mono">02</span>奖项</a>
-        <a href="#work"><span class="mono">03</span>作品</a>
-        <a href="#articles"><span class="mono">04</span>文章</a>
-        <a href="#contact"><span class="mono">05</span>联系</a>
+      </div>
+      <nav class="mobile-nav" id="mobileNav" data-i18n-aria="nav.mobile" aria-label="移动端导航" hidden>
+        <a href="#about"><span class="mono">01</span><span data-i18n="nav.about">关于</span></a>
+        <a href="#awards"><span class="mono">02</span><span data-i18n="nav.awards">奖项</span></a>
+        <a href="#work"><span class="mono">03</span><span data-i18n="nav.work">作品</span></a>
+        <a href="#articles"><span class="mono">04</span><span data-i18n="nav.articles">文章</span></a>
+        <a href="#contact"><span class="mono">05</span><span data-i18n="nav.contact">联系</span></a>
       </nav>
     </header>
-    <button class="nav-scrim" id="navScrim" type="button" aria-label="关闭导航" hidden></button>
+    <button class="nav-scrim" id="navScrim" type="button" data-i18n-aria="nav.scrim" aria-label="关闭导航" hidden></button>
 
     <main>
       <!-- HERO -->
       <section class="hero" id="about" aria-labelledby="about-h">
         <div class="hero__inner">
           <div class="hero__copy">
-            <a class="hero__avatar-link" href="/meow/" data-reveal title="彩蛋：月薪喵" aria-label="打开彩蛋：月薪喵">
-              <img class="hero__avatar" src="https://dl.0nyx.cn/homepage/assets/avatar.png" alt="0Nyx 的头像" width="88" height="88" loading="eager" decoding="async" />
+            <a class="hero__avatar-link" href="/meow/" data-reveal data-i18n-title="hero.easterTitle" title="彩蛋：月薪喵" data-i18n-aria="hero.easterAria" aria-label="打开彩蛋：月薪喵">
+              <img class="hero__avatar" src="https://dl.0nyx.cn/homepage/assets/avatar.png" data-i18n-alt="hero.avatarAlt" alt="0Nyx 的头像" width="88" height="88" loading="eager" decoding="async" />
               <span class="hero__avatar-hint" aria-hidden="true">
                 <svg class="hero__mac-cursor" viewBox="0 0 32 32" width="28" height="28" fill="none">
                   <path fill="#fff" d="M4.2 2.1 4.1 24.8l6.1-5.7 3.9 9.3 4.6-1.9-3.9-9.2 8.3-.2z"/>
@@ -100,7 +119,7 @@
             </a>
             <p class="hero__status" data-reveal>
               <span class="status-dot" aria-hidden="true"></span>
-              <span class="mono">个人作品展示</span>
+              <span class="mono" data-i18n="hero.status">个人作品展示</span>
               <span class="hero__status-sep" aria-hidden="true">/</span>
               <span class="mono">Based in China</span>
             </p>
@@ -109,25 +128,25 @@
               <span class="hero__title-line">0<span class="hero__title-accent">Nyx</span></span>
             </h1>
 
-            <p class="hero__role mono" data-reveal>全栈开发者 · Full-stack developer</p>
-            <h2 class="visually-hidden" id="about-h">关于</h2>
+            <p class="hero__role mono" data-reveal data-i18n="hero.role">全栈开发者 · Full-stack developer</p>
+            <h2 class="visually-hidden" id="about-h" data-i18n="hero.about">关于</h2>
 
-            <p class="hero__lede" data-reveal>
+            <p class="hero__lede" data-reveal data-i18n="hero.lede">
               目前就读于内蒙古师范大学计算机科学技术学院软件工程专业，2025 级。
               做 Web、移动端和 AI 方向的项目，从后端、数据到界面，再到部署上线，都能够独立完成。
             </p>
 
             <div class="hero__actions" data-reveal>
               <a class="btn btn--primary" href="#work">
-                查看作品
+                <span data-i18n="hero.viewWork">查看作品</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true" class="btn__icon"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </a>
-              <a class="btn btn--ghost" href="#contact">联系我</a>
+              <a class="btn btn--ghost" href="#contact" data-i18n="nav.contact" data-i18n="hero.contactMe">联系我</a>
             </div>
           </div>
 
           <div class="hero__art" data-reveal>
-            <div class="term" id="term" role="group" aria-label="交互式终端，输入 help 查看可用命令">
+            <div class="term" id="term" role="group" data-i18n-aria="term.aria" aria-label="交互式终端，输入 help 查看可用命令">
               <div class="term__bar">
                 <span class="term__dot"></span>
                 <span class="term__dot"></span>
@@ -149,12 +168,12 @@
           </div>
         </div>
 
-        <a class="hero__scroll mono" href="#awards" aria-label="向下滚动">
+        <a class="hero__scroll mono" href="#awards" data-i18n-aria="hero.scroll" aria-label="向下滚动">
           <span>scroll</span>
           <span class="hero__scroll-line" aria-hidden="true"></span>
         </a>
 
-        <div class="stack-marquee" aria-label="常用语言和工具">
+        <div class="stack-marquee" data-i18n-aria="hero.stack" aria-label="常用语言和工具">
           <div class="stack-marquee__window">
             <div class="stack-marquee__track">
               <ul class="stack-marquee__list">
@@ -201,26 +220,26 @@
       <section class="section" id="awards" aria-labelledby="awards-h">
         <div class="section__head">
           <span class="section__index mono" data-reveal>02 / awards</span>
-          <h2 class="section__title" id="awards-h" data-reveal>奖项</h2>
+          <h2 class="section__title" id="awards-h" data-reveal data-i18n="awards.title">奖项</h2>
         </div>
 
         <div class="awards" data-reveal>
           <table class="awards__table">
             <thead>
               <tr>
-                <th scope="col">年份</th>
-                <th scope="col">赛事</th>
-                <th scope="col">名次</th>
-                <th scope="col">证书</th>
+                <th scope="col" data-i18n="awards.year">年份</th>
+                <th scope="col" data-i18n="awards.event">赛事</th>
+                <th scope="col" data-i18n="awards.place">名次</th>
+                <th scope="col" data-i18n="awards.cert">证书</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td class="mono">2026</td>
-                <td>中国高校计算机大赛 · AIGC 创新赛</td>
-                <td>华北赛区二等奖</td>
+                <td data-i18n="awards.eventName">中国高校计算机大赛 · AIGC 创新赛</td>
+                <td data-i18n="awards.placeName">华北赛区二等奖</td>
                 <td>
-                  <a class="awards__cert" href="/awards/aigc-2026-huabei.pdf" target="_blank" rel="noopener">查看证书</a>
+                  <a class="awards__cert" href="/awards/aigc-2026-huabei.pdf" target="_blank" rel="noopener" data-i18n="awards.viewCert">查看证书</a>
                 </td>
               </tr>
               <tr class="awards__slot" aria-hidden="true">
@@ -236,7 +255,7 @@
           </table>
         </div>
         <p class="work__more mono" data-reveal>
-          <a href="/awards/">更多奖项</a>
+          <a href="/awards/" data-i18n="awards.more">更多奖项</a>
         </p>
       </section>
 
@@ -244,7 +263,7 @@
       <section class="section work" id="work" aria-labelledby="work-h">
         <div class="section__head">
           <span class="section__index mono" data-reveal>03 / work</span>
-          <h2 class="section__title" id="work-h" data-reveal>开源项目</h2>
+          <h2 class="section__title" id="work-h" data-reveal data-i18n="work.title">开源项目</h2>
         </div>
 
         <ol class="project-list">
@@ -256,8 +275,8 @@
                   <h3>ListenE</h3>
                   <span class="project-row__tag mono">Android / AI Agent</span>
                 </div>
-                <p>面向英语学习的 Android AI Agent。生成听力素材与练习卡片，支持精听和错因复盘。</p>
-                <ul class="project-row__stack mono" aria-label="技术栈">
+                <p data-i18n="work.listene.desc">面向英语学习的 Android AI Agent。生成听力素材与练习卡片，支持精听和错因复盘。</p>
+                <ul class="project-row__stack mono" data-i18n-aria="work.stack" aria-label="技术栈">
                   <li>Kotlin</li><li>Compose</li><li>NestJS</li><li>PostgreSQL</li>
                 </ul>
               </div>
@@ -271,11 +290,11 @@
               <span class="project-row__idx mono">02</span>
               <div class="project-row__body">
                 <div class="project-row__top">
-                  <h3>蒙企链探</h3>
-                  <span class="project-row__tag mono">大创赛 / 全栈</span>
+                  <h3 data-i18n="work.mqlt.title">蒙企链探</h3>
+                  <span class="project-row__tag mono" data-i18n="work.mqlt.tag">大创赛 / 全栈</span>
                 </div>
-                <p>内蒙古食品产业研学平台。预约、导览打卡、成果沉淀，再接到积分商城和运营后台。</p>
-                <ul class="project-row__stack mono" aria-label="技术栈">
+                <p data-i18n="work.mqlt.desc">内蒙古食品产业研学平台。预约、导览打卡、成果沉淀，再接到积分商城和运营后台。</p>
+                <ul class="project-row__stack mono" data-i18n-aria="work.stack" aria-label="技术栈">
                   <li>NestJS</li><li>Prisma</li><li>UniApp X</li><li>Vue 3</li>
                 </ul>
               </div>
@@ -290,10 +309,10 @@
               <div class="project-row__body">
                 <div class="project-row__top">
                   <h3>HomePage</h3>
-                  <span class="project-row__tag mono">个人主页 / 开源</span>
+                  <span class="project-row__tag mono" data-i18n="work.homepage.tag">个人主页 / 开源</span>
                 </div>
-                <p>这个站的源码。暗色页面、项目列表和详情页，喜欢的话可以直接拿去改。</p>
-                <ul class="project-row__stack mono" aria-label="技术栈">
+                <p data-i18n="work.homepage.desc">这个站的源码。暗色页面、项目列表和详情页，喜欢的话可以直接拿去改。</p>
+                <ul class="project-row__stack mono" data-i18n-aria="work.stack" aria-label="技术栈">
                   <li>HTML</li><li>CSS</li><li>JavaScript</li>
                 </ul>
               </div>
@@ -307,12 +326,12 @@
               <span class="project-row__idx mono">04</span>
               <div class="project-row__body">
                 <div class="project-row__top">
-                  <h3>方程剧场</h3>
-                  <span class="project-row__tag mono">Godot / 3D 物理</span>
-                  <span class="feature__pill mono">概念版</span>
+                  <h3 data-i18n="work.equa.title">方程剧场</h3>
+                  <span class="project-row__tag mono" data-i18n="work.equa.tag">Godot / 3D 物理</span>
+                  <span class="feature__pill mono" data-i18n="work.pill">概念版</span>
                 </div>
-                <p>在 3D 实验室里搭物理场景，改参数看运动，再对照公式。目前是概念版。</p>
-                <ul class="project-row__stack mono" aria-label="技术栈">
+                <p data-i18n="work.equa.desc">在 3D 实验室里搭物理场景，改参数看运动，再对照公式。目前是概念版。</p>
+                <ul class="project-row__stack mono" data-i18n-aria="work.stack" aria-label="技术栈">
                   <li>Godot 4.7</li><li>GDScript</li><li>Jolt Physics</li>
                 </ul>
               </div>
@@ -324,7 +343,7 @@
         </ol>
 
         <p class="work__more mono" data-reveal>
-          <a href="/projects/">更多项目</a>
+          <a href="/projects/" data-i18n="work.more">更多项目</a>
           <a href="https://github.com/MarkHayford" rel="noopener" target="_blank">GitHub</a>
         </p>
       </section>
@@ -333,7 +352,7 @@
       <section class="section articles" id="articles" aria-labelledby="articles-h">
         <div class="section__head">
           <span class="section__index mono" data-reveal>04 / articles</span>
-          <h2 class="section__title" id="articles-h" data-reveal>文章</h2>
+          <h2 class="section__title" id="articles-h" data-reveal data-i18n="articles.title">文章</h2>
         </div>
         <ul class="articles__grid">
           <li class="article-card article-card--lead" data-reveal>
@@ -341,16 +360,16 @@
               <article>
                 <p class="article-card__meta mono">
                   <time datetime="2026-08">2026-08</time>
-                  <span class="article-card__status">对象存储</span>
+                  <span class="article-card__status" data-i18n="articles.wasabi.status">对象存储</span>
                 </p>
-                <h3>性价比超高的对象储存-Wasabi</h3>
-                <p>流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。</p>
-                <span class="article-card__cta mono">阅读文章</span>
+                <h3 data-i18n="articles.wasabi.title">性价比超高的对象储存-Wasabi</h3>
+                <p data-i18n="articles.wasabi.desc">流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。</p>
+                <span class="article-card__cta mono" data-i18n="articles.read">阅读文章</span>
               </article>
             </a>
           </li>
           <li class="article-card article-card--empty" data-reveal>
-            <article aria-label="文章占位">
+            <article data-i18n-aria="articles.emptyAria" aria-label="文章占位">
               <div class="article-card__bars" aria-hidden="true">
                 <span></span>
                 <span></span>
@@ -358,7 +377,7 @@
             </article>
           </li>
           <li class="article-card article-card--empty" data-reveal>
-            <article aria-label="文章占位">
+            <article data-i18n-aria="articles.emptyAria" aria-label="文章占位">
               <div class="article-card__bars" aria-hidden="true">
                 <span></span>
                 <span></span>
@@ -367,7 +386,7 @@
           </li>
         </ul>
         <p class="work__more mono" data-reveal>
-          <a href="/articles/">更多文章</a>
+          <a href="/articles/" data-i18n="articles.more">更多文章</a>
         </p>
       </section>
 
@@ -376,22 +395,22 @@
         <div class="contact__inner">
           <span class="section__index mono" data-reveal>05 / contact</span>
           <h2 class="contact__title" id="contact-h" data-reveal>
-            <span>想聊技术</span><span>可以直接写信。</span>
+            <span data-i18n="contact.line1">想聊技术</span><span data-i18n="contact.line2">可以直接写信。</span>
           </h2>
-          <p class="contact__lede" data-reveal>
+          <p class="contact__lede" data-reveal data-i18n="contact.lede">
             对某个项目有问题，或只是想交流，发邮件就好。
           </p>
           <div class="contact__actions" data-reveal>
             <a class="btn btn--primary btn--lg" href="mailto:markhayford816@icloud.com">
               markhayford816@icloud.com
             </a>
-            <button class="btn btn--ghost btn--lg" id="copyEmail" type="button" data-email="markhayford816@icloud.com">
+            <button class="btn btn--ghost btn--lg" id="copyEmail" type="button" data-email="markhayford816@icloud.com" data-i18n="contact.copy">
               复制邮箱
             </button>
           </div>
-          <ul class="socials mono" data-reveal aria-label="社交链接">
+          <ul class="socials mono" data-reveal data-i18n-aria="contact.social" aria-label="社交链接">
             <li><a href="https://github.com/MarkHayford" rel="noopener" target="_blank">GitHub</a></li>
-            <li><button class="social-btn" id="copyWechat" type="button" data-wechat="ITGao06">微信 · ITGao06</button></li>
+            <li><button class="social-btn" id="copyWechat" type="button" data-wechat="ITGao06"><span data-i18n="contact.wechat">微信 · ITGao06</span></button></li>
             <li><a href="https://0nyx.cn" rel="noopener">0nyx.cn</a></li>
           </ul>
         </div>
@@ -400,7 +419,7 @@
 
     <footer class="site-footer">
       <span class="mono">© <span id="year">2026–2027</span> 0Nyx</span>
-      <nav class="site-footer__links mono" aria-label="站点链接">
+      <nav class="site-footer__links mono" data-i18n-aria="footer.links" aria-label="站点链接">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">蒙ICP备2026008558号-1</a>
         <a class="beian-gongan" href="https://beian.mps.gov.cn/#/query/webSearch?code=15072102000072" target="_blank" rel="noopener"><img src="/assets/gongan.png" width="18" height="18" alt="" />蒙公网安备15072102000072号</a>
       </nav>
@@ -408,6 +427,6 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="https://dl.0nyx.cn/homepage/script.20260920b.js"></script>
+    <script src="https://dl.0nyx.cn/homepage/script.20260920c.js"></script>
   </body>
 </html>

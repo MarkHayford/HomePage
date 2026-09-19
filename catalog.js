@@ -5,6 +5,7 @@
   const count = document.getElementById("catalogCount");
   const empty = document.getElementById("catalogEmpty");
   if (!list) return;
+  document.addEventListener("onyx:lang", apply);
 
   const items = Array.from(list.querySelectorAll("[data-catalog-item]"));
   let activeTag = "all";

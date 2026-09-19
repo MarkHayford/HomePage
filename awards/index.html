@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-i18n-title="meta.awardsTitle">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" href="https://dl.0nyx.cn/homepage/assets/favicon.png?v=2" />
     <title>奖项 - 0Nyx</title>
-    <meta name="description" content="0Nyx 的奖项列表。可以按年份、赛事和名次搜索筛选。" />
+    <meta name="description" data-i18n-content="meta.awardsDesc" content="0Nyx 的奖项列表。可以按年份、赛事和名次搜索筛选。" />
     <link rel="canonical" href="https://www.0nyx.cn/awards/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="0Nyx" />
@@ -15,65 +15,83 @@
     <meta property="og:description" content="0Nyx 的奖项列表。可以按年份、赛事和名次搜索筛选。" />
     <meta property="og:url" content="https://www.0nyx.cn/awards/" />
     <meta property="og:image" content="https://dl.0nyx.cn/homepage/assets/og.png" />
-    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260829a.css" />
+    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260920c.css" />
     <link rel="stylesheet" href="/beian.css?v=20260826a" />
-    <script>document.documentElement.classList.add("js");</script>
+    <script>      document.documentElement.classList.add("js");
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get("lang");
+          var stored = localStorage.getItem("0nyx-lang");
+          var lang = q === "en" || q === "zh" ? q : stored === "en" || stored === "zh" ? stored : "zh";
+          if (q === "en" || q === "zh") localStorage.setItem("0nyx-lang", q);
+          document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-lang", lang);
+          setTimeout(function () { document.documentElement.classList.add("i18n-ready"); }, 2500);
+        } catch (e) {}
+      })();</script>
   </head>
   <body class="page-project">
-    <a class="skip-link" href="#catalog">跳到列表</a>
+    <a class="skip-link" href="#catalog" data-i18n="skip.list">跳到列表</a>
     <div class="page-field" aria-hidden="true">
       <canvas class="page-field__canvas" id="field"></canvas>
       <div class="page-field__glow" id="glow"></div>
     </div>
     <header class="site-header" id="top">
-      <a class="brand" href="/" aria-label="0Nyx 首页">
+      <a class="brand" href="/" data-i18n-aria="brand.home" aria-label="0Nyx 首页">
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__text">0<span class="brand__accent">Nyx</span></span>
       </a>
-      <nav class="site-nav" aria-label="主导航">
-        <a href="/#about">关于</a>
-        <a href="/#awards">奖项</a>
-        <a href="/#work">作品</a>
-        <a href="/#articles">文章</a>
-        <a class="site-nav__cta" href="/#contact">联系</a>
+      <nav class="site-nav" data-i18n-aria="nav.main" aria-label="主导航">
+        <a href="/#about" data-i18n="nav.about">关于</a>
+        <a href="/#awards" data-i18n="nav.awards">奖项</a>
+        <a href="/#work" data-i18n="nav.work">作品</a>
+        <a href="/#articles" data-i18n="nav.articles">文章</a>
+        <a class="site-nav__cta" href="/#contact" data-i18n="nav.contact">联系</a>
       </nav>
-      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="打开导航">
+            <div class="header-tools">
+        <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="lang.toggle" aria-label="切换为英文">
+          <span class="lang-toggle__zh">中</span>
+          <span class="lang-toggle__sep" aria-hidden="true">/</span>
+          <span class="lang-toggle__en">EN</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileNav" data-i18n-aria="nav.open" aria-label="打开导航">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-      <nav class="mobile-nav" id="mobileNav" aria-label="移动端导航" hidden>
-        <a href="/#about"><span class="mono">01</span>关于</a>
-        <a href="/#awards"><span class="mono">02</span>奖项</a>
-        <a href="/#work"><span class="mono">03</span>作品</a>
-        <a href="/#articles"><span class="mono">04</span>文章</a>
-        <a href="/#contact"><span class="mono">05</span>联系</a>
+      </div>
+      <nav class="mobile-nav" id="mobileNav" data-i18n-aria="nav.mobile" aria-label="移动端导航" hidden>
+        <a href="/#about"><span class="mono">01</span><span data-i18n="nav.about">关于</span></a>
+        <a href="/#awards"><span class="mono">02</span><span data-i18n="nav.awards">奖项</span></a>
+        <a href="/#work"><span class="mono">03</span><span data-i18n="nav.work">作品</span></a>
+        <a href="/#articles"><span class="mono">04</span><span data-i18n="nav.articles">文章</span></a>
+        <a href="/#contact"><span class="mono">05</span><span data-i18n="nav.contact">联系</span></a>
       </nav>
     </header>
-    <button class="nav-scrim" id="navScrim" type="button" aria-label="关闭导航" hidden></button>
+    <button class="nav-scrim" id="navScrim" type="button" data-i18n-aria="nav.scrim" aria-label="关闭导航" hidden></button>
 
     <main>
       <section class="section project-page" id="catalog">
         <p class="project-crumb mono">
-          <a href="/">首页</a>
+          <a href="/" data-i18n="catalog.home">首页</a>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
-          <span>奖项</span>
+          <span data-i18n="awards.pageTitle">奖项</span>
         </p>
         <header class="project-hero">
           <div>
             <p class="project-kicker mono">catalog / awards</p>
-            <h1>奖项</h1>
-            <p class="project-hero__lede">拿过的都在这儿。可以搜赛事，也可以按年份和名次筛。</p>
+            <h1 data-i18n="awards.pageTitle">奖项</h1>
+            <p class="project-hero__lede" data-i18n="awards.lede">拿过的都在这儿。可以搜赛事，也可以按年份和名次筛。</p>
           </div>
         </header>
 
         <div class="catalog-toolbar">
-          <label class="visually-hidden" for="catalogSearch">搜索奖项</label>
-          <input class="catalog-search" id="catalogSearch" type="search" placeholder="搜赛事、名次…" autocomplete="off" />
+          <label class="visually-hidden" for="catalogSearch" data-i18n="awards.search">搜索奖项</label>
+          <input class="catalog-search" id="catalogSearch" type="search" data-i18n-placeholder="awards.searchPh" placeholder="搜赛事、名次…" autocomplete="off" />
           <div class="catalog-tags" id="catalogTags">
-            <button type="button" class="is-on" data-tag="all">全部</button>
+            <button type="button" class="is-on" data-tag="all" data-i18n="catalog.all">全部</button>
             <button type="button" data-tag="2026">2026</button>
             <button type="button" data-tag="aigc">AIGC</button>
-            <button type="button" data-tag="second">二等奖</button>
+            <button type="button" data-tag="second" data-i18n="awards.second">二等奖</button>
           </div>
         </div>
         <p class="catalog-count mono" id="catalogCount"></p>
@@ -82,37 +100,37 @@
           <table class="awards__table">
             <thead>
               <tr>
-                <th scope="col">年份</th>
-                <th scope="col">赛事</th>
-                <th scope="col">名次</th>
-                <th scope="col">证书</th>
+                <th scope="col" data-i18n="awards.year">年份</th>
+                <th scope="col" data-i18n="awards.event">赛事</th>
+                <th scope="col" data-i18n="awards.place">名次</th>
+                <th scope="col" data-i18n="awards.cert">证书</th>
               </tr>
             </thead>
             <tbody id="catalogList">
-              <tr data-catalog-item data-tags="2026 aigc second" data-search="2026 中国高校计算机大赛 aigc 创新赛 华北赛区 二等奖 证书">
+              <tr data-catalog-item data-tags="2026 aigc second" data-search="2026 中国高校计算机大赛 aigc 创新赛 华北赛区 二等奖 证书 collegiate computing contest north china second prize">
                 <td class="mono">2026</td>
-                <td>中国高校计算机大赛 · AIGC 创新赛</td>
-                <td>华北赛区二等奖</td>
+                <td data-i18n="awards.eventName">中国高校计算机大赛 · AIGC 创新赛</td>
+                <td data-i18n="awards.placeName">华北赛区二等奖</td>
                 <td>
-                  <a class="awards__cert" href="/awards/aigc-2026-huabei.pdf" target="_blank" rel="noopener">查看证书</a>
+                  <a class="awards__cert" href="/awards/aigc-2026-huabei.pdf" target="_blank" rel="noopener" data-i18n="awards.viewCert">查看证书</a>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="catalog-empty" id="catalogEmpty" hidden>没有匹配的奖项。</p>
+        <p class="catalog-empty" id="catalogEmpty" hidden data-i18n="awards.empty">没有匹配的奖项。</p>
       </section>
     </main>
 
     <footer class="site-footer">
       <span class="mono">© <span id="year">2026</span> 0Nyx</span>
-      <nav class="site-footer__links mono" aria-label="站点链接">
+      <nav class="site-footer__links mono" data-i18n-aria="footer.links" aria-label="站点链接">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">蒙ICP备2026008558号-1</a>
         <a class="beian-gongan" href="https://beian.mps.gov.cn/#/query/webSearch?code=15072102000072" target="_blank" rel="noopener"><img src="/assets/gongan.png" width="18" height="18" alt="" />蒙公网安备15072102000072号</a>
       </nav>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="https://dl.0nyx.cn/homepage/script.20260920a.js"></script>
-    <script src="https://dl.0nyx.cn/homepage/catalog.20260823a.js"></script>
+    <script src="https://dl.0nyx.cn/homepage/script.20260920c.js"></script>
+    <script src="https://dl.0nyx.cn/homepage/catalog.20260920c.js"></script>
   </body>
 </html>

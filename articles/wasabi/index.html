@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-i18n-title="meta.wasabiTitle">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" href="https://dl.0nyx.cn/homepage/assets/favicon.png?v=2" />
     <title>性价比超高的对象储存-Wasabi - 0Nyx</title>
-    <meta name="description" content="Wasabi 流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。" />
+    <meta name="description" data-i18n-content="meta.wasabiDesc" content="Wasabi 流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。" />
     <link rel="canonical" href="https://www.0nyx.cn/articles/wasabi/" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="0Nyx" />
@@ -25,14 +25,25 @@
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="https://dl.0nyx.cn/homepage/assets/fonts/noto-sans-sc-page.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260829a.css" />
+    <link rel="stylesheet" href="https://dl.0nyx.cn/homepage/styles.20260920c.css" />
     <link rel="stylesheet" href="/beian.css?v=20260826a" />
     <script>
-      document.documentElement.classList.add("js");
+            document.documentElement.classList.add("js");
+      (function () {
+        try {
+          var q = new URLSearchParams(location.search).get("lang");
+          var stored = localStorage.getItem("0nyx-lang");
+          var lang = q === "en" || q === "zh" ? q : stored === "en" || stored === "zh" ? stored : "zh";
+          if (q === "en" || q === "zh") localStorage.setItem("0nyx-lang", q);
+          document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
+          document.documentElement.setAttribute("data-lang", lang);
+          setTimeout(function () { document.documentElement.classList.add("i18n-ready"); }, 2500);
+        } catch (e) {}
+      })();
     </script>
   </head>
   <body class="page-project">
-    <a class="skip-link" href="#article">跳到文章</a>
+    <a class="skip-link" href="#article" data-i18n="skip.article">跳到文章</a>
 
     <div class="page-field" aria-hidden="true">
       <canvas class="page-field__canvas" id="field"></canvas>
@@ -40,62 +51,69 @@
     </div>
 
     <header class="site-header" id="top">
-      <a class="brand" href="/" aria-label="0Nyx 首页">
+      <a class="brand" href="/" data-i18n-aria="brand.home" aria-label="0Nyx 首页">
         <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__text">0<span class="brand__accent">Nyx</span></span>
       </a>
-      <nav class="site-nav" aria-label="主导航">
-        <a href="/#about">关于</a>
-        <a href="/#awards">奖项</a>
-        <a href="/#work">作品</a>
-        <a href="/#articles">文章</a>
-        <a class="site-nav__cta" href="/#contact">联系</a>
+      <nav class="site-nav" data-i18n-aria="nav.main" aria-label="主导航">
+        <a href="/#about" data-i18n="nav.about">关于</a>
+        <a href="/#awards" data-i18n="nav.awards">奖项</a>
+        <a href="/#work" data-i18n="nav.work">作品</a>
+        <a href="/#articles" data-i18n="nav.articles">文章</a>
+        <a class="site-nav__cta" href="/#contact" data-i18n="nav.contact">联系</a>
       </nav>
-      <button
+            <div class="header-tools">
+        <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="lang.toggle" aria-label="切换为英文">
+          <span class="lang-toggle__zh">中</span>
+          <span class="lang-toggle__sep" aria-hidden="true">/</span>
+          <span class="lang-toggle__en">EN</span>
+        </button>
+        <button
         class="nav-toggle"
         id="navToggle"
         type="button"
         aria-expanded="false"
         aria-controls="mobileNav"
-        aria-label="打开导航"
+        data-i18n-aria="nav.open" aria-label="打开导航"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </button>
-      <nav class="mobile-nav" id="mobileNav" aria-label="移动端导航" hidden>
-        <a href="/#about"><span class="mono">01</span>关于</a>
-        <a href="/#awards"><span class="mono">02</span>奖项</a>
-        <a href="/#work"><span class="mono">03</span>作品</a>
-        <a href="/#articles"><span class="mono">04</span>文章</a>
-        <a href="/#contact"><span class="mono">05</span>联系</a>
+      </div>
+      <nav class="mobile-nav" id="mobileNav" data-i18n-aria="nav.mobile" aria-label="移动端导航" hidden>
+        <a href="/#about"><span class="mono">01</span><span data-i18n="nav.about">关于</span></a>
+        <a href="/#awards"><span class="mono">02</span><span data-i18n="nav.awards">奖项</span></a>
+        <a href="/#work"><span class="mono">03</span><span data-i18n="nav.work">作品</span></a>
+        <a href="/#articles"><span class="mono">04</span><span data-i18n="nav.articles">文章</span></a>
+        <a href="/#contact"><span class="mono">05</span><span data-i18n="nav.contact">联系</span></a>
       </nav>
     </header>
-    <button class="nav-scrim" id="navScrim" type="button" aria-label="关闭导航" hidden></button>
+    <button class="nav-scrim" id="navScrim" type="button" data-i18n-aria="nav.scrim" aria-label="关闭导航" hidden></button>
 
     <main>
       <article class="section project-page" id="article">
         <p class="project-crumb mono">
-          <a href="/#articles">文章</a>
+          <a href="/#articles" data-i18n="nav.articles">文章</a>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
-          <span>性价比超高的对象储存-Wasabi</span>
+          <span data-i18n="articles.wasabi.title">性价比超高的对象储存-Wasabi</span>
         </p>
 
         <header class="project-hero">
           <div>
-            <p class="project-kicker mono">对象存储 / CDN</p>
-            <h1>性价比超高的对象储存-Wasabi</h1>
-            <p class="project-hero__lede">Wasabi 流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。</p>
+            <p class="project-kicker mono" data-i18n="wasabi.kicker">对象存储 / CDN</p>
+            <h1 data-i18n="articles.wasabi.title">性价比超高的对象储存-Wasabi</h1>
+            <p class="project-hero__lede" data-i18n="wasabi.lede">Wasabi 流量不收费，请求也不收费，一个月最低按 1 TB 算，6.99 美元一个月。新人免费试用 30 天。实测下载速度最高能到 30 MB/s 左右。</p>
             <dl class="project-meta">
               <div>
-                <dt class="mono">日期</dt>
+                <dt class="mono" data-i18n="p.date">日期</dt>
                 <dd>2026-08</dd>
               </div>
               <div>
-                <dt class="mono">类型</dt>
-                <dd>推荐</dd>
+                <dt class="mono" data-i18n="p.type">类型</dt>
+                <dd data-i18n="p.recommend">推荐</dd>
               </div>
               <div>
-                <dt class="mono">最低月费</dt>
+                <dt class="mono" data-i18n="p.minFee">最低月费</dt>
                 <dd>$6.99 / 1 TB</dd>
               </div>
             </dl>
@@ -109,33 +127,33 @@
 
         <div class="project-grid">
           <div class="project-copy">
-            <h2>为啥推荐</h2>
-            <p>别的对象存储，流量要钱，请求也要钱。文件一多，月底账单就难看。<a href="https://wasabi.com/" rel="noopener" target="_blank">Wasabi</a> 跟 S3 兼容，流量和请求都不管，就按你存了多少收。</p>
-            <p>新注册能免费试用 30 天，先传点东西试试。官网在 <a href="https://wasabi.com/" rel="noopener" target="_blank">wasabi.com</a>。</p>
+            <h2 data-i18n="wasabi.h1">为啥推荐</h2>
+            <p data-i18n="wasabi.p1html" data-i18n-html>别的对象存储，流量要钱，请求也要钱。文件一多，月底账单就难看。<a href="https://wasabi.com/" rel="noopener" target="_blank">Wasabi</a> 跟 S3 兼容，流量和请求都不管，就按你存了多少收。</p>
+            <p data-i18n="wasabi.p2html" data-i18n-html>新注册能免费试用 30 天，先传点东西试试。官网在 <a href="https://wasabi.com/" rel="noopener" target="_blank">wasabi.com</a>。</p>
 
-            <h2>怎么收费</h2>
-            <p>一个月最低按 1 TB 算，6.99 美元。你只存了 200 GB，也按 1 TB 收。超过 1 TB 还是这个价，多 1 TB 再加 6.99。</p>
+            <h2 data-i18n="wasabi.h2">怎么收费</h2>
+            <p data-i18n="wasabi.p3">一个月最低按 1 TB 算，6.99 美元。你只存了 200 GB，也按 1 TB 收。超过 1 TB 还是这个价，多 1 TB 再加 6.99。</p>
             <ul class="project-points">
-              <li>200 GB：6.99 美元</li>
-              <li>1 TB：6.99 美元</li>
-              <li>2 TB：13.98 美元</li>
-              <li>3 TB：20.97 美元</li>
+              <li data-i18n="wasabi.b1">200 GB：6.99 美元</li>
+              <li data-i18n="wasabi.b2">1 TB：6.99 美元</li>
+              <li data-i18n="wasabi.b3">2 TB：13.98 美元</li>
+              <li data-i18n="wasabi.b4">3 TB：20.97 美元</li>
             </ul>
-            <p>文件传上去没满 90 天就删，也按 90 天收费。拿新文件把旧的盖掉，一样。满 90 天后再删，这条就不算了，按你实际还存着的量收。别拿它当临时盘，长期放着更合适。</p>
+            <p data-i18n="wasabi.p4">文件传上去没满 90 天就删，也按 90 天收费。拿新文件把旧的盖掉，一样。满 90 天后再删，这条就不算了，按你实际还存着的量收。别拿它当临时盘，长期放着更合适。</p>
 
-            <h2>有哪些区域</h2>
-            <p>北美有弗吉尼亚、得克萨斯、俄勒冈，加拿大还有多伦多。欧洲是阿姆斯特丹和伦敦。亚太是东京、新加坡、悉尼。挑近的就行。</p>
+            <h2 data-i18n="wasabi.h3">有哪些区域</h2>
+            <p data-i18n="wasabi.p5">北美有弗吉尼亚、得克萨斯、俄勒冈，加拿大还有多伦多。欧洲是阿姆斯特丹和伦敦。亚太是东京、新加坡、悉尼。挑近的就行。</p>
 
-            <h2>桶不能随便公开</h2>
-            <p>Wasabi 默认不让把桶设成公开的，怕被人拿去乱传东西。真要把桶改成公开，得发邮件提工单，等他们开。</p>
+            <h2 data-i18n="wasabi.h4">桶不能随便公开</h2>
+            <p data-i18n="wasabi.p6">Wasabi 默认不让把桶设成公开的，怕被人拿去乱传东西。真要把桶改成公开，得发邮件提工单，等他们开。</p>
 
-            <h2>挂个免费 EdgeOne</h2>
-            <p>不一定非要把桶改公开。前面挂腾讯免费的 <a href="https://cloud.tencent.com/product/teo" rel="noopener" target="_blank">EdgeOne</a>，用密钥回源 Wasabi。外面走 CDN，桶还是私有的，文件照样能打开。</p>
-            <p>国内还有节点，缓存一下会快一些。我这边实测下载速度最高能到 30 MB/s 左右。个人站用免费计划够了，流量真爆了再说。</p>
-            <p>价格和试用规则以后可能会变，下单前看一眼官网：<a href="https://wasabi.com/pricing" rel="noopener" target="_blank">Wasabi 价格</a>、<a href="https://cloud.tencent.com/product/teo" rel="noopener" target="_blank">EdgeOne</a>。</p>
+            <h2 data-i18n="wasabi.h5">挂个免费 EdgeOne</h2>
+            <p data-i18n="wasabi.p7html" data-i18n-html>不一定非要把桶改公开。前面挂腾讯免费的 <a href="https://cloud.tencent.com/product/teo" rel="noopener" target="_blank">EdgeOne</a>，用密钥回源 Wasabi。外面走 CDN，桶还是私有的，文件照样能打开。</p>
+            <p data-i18n="wasabi.p8">国内还有节点，缓存一下会快一些。我这边实测下载速度最高能到 30 MB/s 左右。个人站用免费计划够了，流量真爆了再说。</p>
+            <p data-i18n="wasabi.p9html" data-i18n-html>价格和试用规则以后可能会变，下单前看一眼官网：<a href="https://wasabi.com/pricing" rel="noopener" target="_blank">Wasabi 价格</a>、<a href="https://cloud.tencent.com/product/teo" rel="noopener" target="_blank">EdgeOne</a>。</p>
           </div>
           <aside class="project-aside">
-            <h2>官网</h2>
+            <h2 data-i18n="wasabi.official">官网</h2>
             <ul class="tags"><li>Wasabi</li><li>EdgeOne</li><li>S3</li><li>1 TB</li></ul>
             <a href="https://wasabi.com/" rel="noopener" target="_blank">
               Wasabi
@@ -146,7 +164,7 @@
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
             <a href="/#articles">
-              返回文章
+              <span data-i18n="wasabi.back">返回文章</span>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </a>
           </aside>
@@ -156,13 +174,13 @@
 
     <footer class="site-footer">
       <span class="mono">© <span id="year">2026</span> 0Nyx</span>
-      <nav class="site-footer__links mono" aria-label="站点链接">
+      <nav class="site-footer__links mono" data-i18n-aria="footer.links" aria-label="站点链接">
         <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">蒙ICP备2026008558号-1</a>
         <a class="beian-gongan" href="https://beian.mps.gov.cn/#/query/webSearch?code=15072102000072" target="_blank" rel="noopener"><img src="/assets/gongan.png" width="18" height="18" alt="" />蒙公网安备15072102000072号</a>
       </nav>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="https://dl.0nyx.cn/homepage/script.20260920a.js"></script>
+    <script src="https://dl.0nyx.cn/homepage/script.20260920c.js"></script>
   </body>
 </html>
