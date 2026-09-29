@@ -1,0 +1,6 @@
+# Replace example.com with your public site origin before deploying.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml
