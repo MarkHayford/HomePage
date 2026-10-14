@@ -1,6 +1,6 @@
-# Replace example.com with your public site origin before deploying.
-
+# www.0nyx.cn
 User-agent: *
 Allow: /
 
-Sitemap: https://example.com/sitemap.xml
+Host: www.0nyx.cn
+Sitemap: https://www.0nyx.cn/sitemap.xml
