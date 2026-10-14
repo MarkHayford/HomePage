@@ -33,7 +33,7 @@
         try {
           var q = new URLSearchParams(location.search).get("lang");
           var stored = localStorage.getItem("0nyx-lang");
-          var lang = q === "en" || q === "zh" ? q : stored === "en" || stored === "zh" ? stored : "zh";
+          var lang = q === "en" || q === "zh" ? q : stored === "en" || stored === "zh" ? stored : /^zh/i.test((navigator.languages && navigator.languages[0]) || navigator.language || "zh") ? "zh" : "en";
           if (q === "en" || q === "zh") localStorage.setItem("0nyx-lang", q);
           document.documentElement.lang = lang === "en" ? "en" : "zh-CN";
           document.documentElement.setAttribute("data-lang", lang);

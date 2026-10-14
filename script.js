@@ -503,7 +503,8 @@
       const stored = localStorage.getItem(LANG_KEY);
       if (stored === "en" || stored === "zh") return stored;
     } catch (err) {}
-    return "zh";
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || "zh";
+    return /^zh/i.test(nav) ? "zh" : "en";
   };
 
   let lang = readLang();
