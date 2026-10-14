@@ -10,28 +10,28 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/assets/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  src: url("assets/fonts/bricolage-grotesque-latin.woff2") format("woff2");
 }
 @font-face {
   font-family: "Hanken Grotesk";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/assets/fonts/hanken-grotesk-latin.woff2") format("woff2");
+  src: url("assets/fonts/hanken-grotesk-latin.woff2") format("woff2");
 }
 @font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  src: url("assets/fonts/jetbrains-mono-latin.woff2") format("woff2");
 }
 @font-face {
   font-family: "Noto Sans SC Subset";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/assets/fonts/noto-sans-sc-page.woff2") format("woff2");
+  src: url("assets/fonts/noto-sans-sc-page.woff2") format("woff2");
 }
 
 :root {
@@ -1178,6 +1178,22 @@ html.js[data-lang="en"]:not(.i18n-ready) body {
   gap: 0.8rem 1.1rem;
 }
 .project-hero__actions:empty { display: none; }
+.project-hero__mirror {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  padding-bottom: 0.12rem;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+  text-decoration-color: oklch(1 0 0 / 0.28);
+  transition: color 0.25s var(--ease), text-decoration-color 0.25s var(--ease);
+}
+.project-hero__mirror:hover {
+  color: var(--signal);
+  text-decoration-color: currentColor;
+}
 .project-meta {
   display: flex;
   flex-wrap: wrap;
